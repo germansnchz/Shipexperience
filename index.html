@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Ship Experience – Inteligencia Artesanal. Paquetes grupales y experiencias personalizadas en Argentina y el mundo.">
+  <title>Ship Experience – Inteligencia Artesanal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    :root{--sp:#6B4FA0;--so:#F5A623;--sl:#B8A8D8;--spd:#4a3570;--spl:#f0ebfa;--text:#1a1a2e;--muted:#6b7280;--border:#e5e7eb;--bg:#f9f7fc}
+    html{scroll-behavior:smooth}
+    body{font-family:'Inter',sans-serif;color:var(--text);background:#fff}
+
+    /* NAV */
+    nav{background:var(--sp);padding:0 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;height:60px}
+    .nav-logo{color:#fff;font-size:19px;font-weight:600;letter-spacing:1px;text-decoration:none;flex-shrink:0}
+    .nav-logo span{color:var(--so)}
+    .nav-center{display:flex;gap:4px;align-items:center}
+    .nav-tab{background:none;border:none;color:var(--sl);font-size:14px;font-weight:500;cursor:pointer;padding:8px 16px;border-radius:20px;transition:all .2s;font-family:'Inter',sans-serif}
+    .nav-tab:hover{color:#fff;background:rgba(255,255,255,.1)}
+    .nav-tab.active{color:#fff;background:rgba(255,255,255,.15)}
+    .nav-right{display:flex;align-items:center;gap:14px;flex-shrink:0}
+    .nav-ig{color:var(--sl);font-size:13px;text-decoration:none;transition:color .2s}
+    .nav-ig:hover{color:#fff}
+    .nav-cta{background:var(--so);color:#fff;border:none;padding:9px 20px;border-radius:20px;font-size:13px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;transition:opacity .2s}
+    .nav-cta:hover{opacity:.9}
+
+    /* HERO */
+    .hero{background:var(--sp);padding:52px 32px 0;text-align:center}
+    .hero-badge{display:inline-block;background:rgba(245,166,35,.2);color:var(--so);font-size:10px;padding:5px 16px;border-radius:20px;letter-spacing:2px;margin-bottom:20px;font-weight:600}
+    .hero h1{font-size:38px;font-weight:600;color:#fff;line-height:1.25;max-width:580px;margin:0 auto 14px}
+    .hero h1 span{color:var(--so)}
+    .hero p{color:var(--sl);font-size:15px;max-width:460px;margin:0 auto 32px;line-height:1.75}
+
+    /* BUSCADOR */
+    .search-box{background:#fff;border-radius:16px 16px 0 0;padding:28px 28px 0;max-width:880px;margin:0 auto}
+    .search-tabs{display:flex;border-bottom:2px solid var(--border);margin-bottom:22px}
+    .stab{flex:1;background:none;border:none;font-size:14px;font-weight:500;color:var(--muted);cursor:pointer;padding:11px;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .2s;font-family:'Inter',sans-serif}
+    .stab.active{color:var(--sp);border-bottom-color:var(--sp)}
+    .search-fields{display:grid;grid-template-columns:2fr 1.2fr 1.2fr auto;gap:12px;align-items:end;padding-bottom:26px}
+    .sf-group{display:flex;flex-direction:column;gap:6px}
+    .sf-label{font-size:11px;font-weight:600;color:var(--muted);letter-spacing:.5px;text-transform:uppercase}
+    .sf-select{border:1.5px solid var(--border);border-radius:10px;padding:11px 32px 11px 14px;font-size:14px;color:var(--text);font-family:'Inter',sans-serif;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7280' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 12px center;appearance:none;cursor:pointer;transition:border-color .2s;outline:none;height:44px}
+    .sf-select:focus{border-color:var(--sp)}
+    .search-btn{background:var(--so);color:#fff;border:none;padding:0 26px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;display:flex;align-items:center;gap:8px;white-space:nowrap;transition:opacity .2s;height:44px}
+    .search-btn:hover{opacity:.9}
+
+    /* RESULTS BAR */
+    .results-bar{background:#fff;max-width:880px;margin:0 auto;padding:0 28px 14px;font-size:13px;color:var(--muted);display:none}
+    .results-bar.on{display:block}
+    .results-bar a{color:var(--sp);text-decoration:none;font-weight:500}
+
+    /* PACKS */
+    .packs-section{background:#fff;padding:0 32px 60px}
+    .packs-inner{max-width:960px;margin:0 auto}
+    .section-header{display:flex;align-items:center;justify-content:space-between;padding:28px 0 20px}
+    .section-header h2{font-size:20px;font-weight:600}
+    .section-header span{font-size:13px;color:var(--muted)}
+    .pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:22px}
+    .hidden{display:none!important}
+    .pc{background:#fff;border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:border-color .2s,transform .2s}
+    .pc:hover{border-color:var(--sp);transform:translateY(-2px)}
+    .pch{position:relative;height:175px;overflow:hidden;background:var(--spd)}
+    .pch img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}
+    .pc:hover .pch img{transform:scale(1.04)}
+    .pch-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(74,53,112,.92) 0%,rgba(74,53,112,.3) 55%,transparent 100%)}
+    .pch-ct{position:absolute;bottom:0;left:0;right:0;padding:16px 18px}
+    .pdest{color:#fff;font-size:18px;font-weight:600;margin-bottom:3px}
+    .pdates{color:var(--sl);font-size:12px}
+    .pbadge{position:absolute;top:12px;right:12px;font-size:10px;padding:4px 11px;border-radius:12px;font-weight:600;letter-spacing:.5px}
+    .pbadge.g{background:rgba(0,0,0,.45);color:var(--sl);border:1px solid rgba(184,168,216,.35)}
+    .pbadge.p{background:var(--so);color:#fff}
+    .pbody{padding:18px}
+    .photel{font-size:13px;color:var(--muted);margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid #f3f3f3}
+    .pinc{list-style:none;margin-bottom:16px}
+    .pinc li{font-size:13px;color:var(--text);padding:4px 0;display:flex;align-items:flex-start;gap:9px;line-height:1.5}
+    .pinc li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--so);margin-top:6px;flex-shrink:0}
+    .pwarn{font-size:12px;color:var(--muted);background:#fafafa;padding:8px 12px;border-radius:8px;margin-bottom:16px;border-left:3px solid var(--border)}
+    .pfoot{display:flex;align-items:center;justify-content:space-between;padding-top:14px;border-top:1px solid #f3f3f3}
+    .pprice{font-size:20px;font-weight:600;color:var(--sp)}
+    .pplabel{font-size:11px;color:var(--muted);margin-bottom:2px}
+    .pbtn{background:var(--so);color:#fff;border:none;padding:10px 20px;border-radius:20px;font-size:13px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;transition:opacity .2s}
+    .pbtn:hover{opacity:.9}
+    .pc-invite{border:2px dashed var(--sl);display:flex;align-items:center;justify-content:center;min-height:320px;text-align:center;padding:36px;cursor:pointer;background:#fff;transition:border-color .2s}
+    .pc-invite:hover{border-color:var(--sp)}
+    .inv-icon{width:52px;height:52px;border-radius:50%;background:var(--spl);display:flex;align-items:center;justify-content:center;margin:0 auto 18px}
+    .no-res{text-align:center;padding:56px 24px;display:none}
+    .no-res.on{display:block}
+    .no-res h3{font-size:18px;font-weight:500;margin-bottom:10px}
+    .no-res p{font-size:14px;color:var(--muted);margin-bottom:24px;line-height:1.7}
+    .btn-wa{background:var(--so);color:#fff;border:none;padding:13px 28px;border-radius:25px;font-size:14px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif}
+
+    /* DESTINOS STRIP */
+    .dest-strip{background:var(--spl);padding:40px 32px}
+    .dest-inner{max-width:960px;margin:0 auto}
+    .dest-strip h2{font-size:18px;font-weight:600;color:var(--sp);margin-bottom:20px}
+    .dest-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:12px}
+    .dchip{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px 10px;text-align:center;cursor:pointer;transition:all .2s}
+    .dchip:hover{border-color:var(--sp);background:var(--spl)}
+    .dchip-icon{font-size:24px;margin-bottom:7px}
+    .dchip-name{font-size:12px;font-weight:600;color:var(--text)}
+    .dchip-sub{font-size:11px;color:var(--muted);margin-top:3px}
+
+    /* RESEÑAS */
+    .res-section{background:#fff;padding:64px 32px}
+    .s-inner{max-width:960px;margin:0 auto}
+    .eyebrow{display:inline-block;background:var(--so);color:#fff;font-size:10px;letter-spacing:2px;padding:5px 15px;border-radius:20px;margin-bottom:18px;font-weight:600}
+    .s-title{font-size:28px;font-weight:600;color:var(--sp);margin-bottom:10px}
+    .s-sub{font-size:15px;color:var(--muted);margin-bottom:40px;line-height:1.7;max-width:520px}
+    .rgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:20px}
+    .rcard{background:#fff;border:1px solid var(--border);border-radius:14px;padding:24px}
+    .rcard-top{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+    .ravatar{width:44px;height:44px;border-radius:50%;background:var(--sp);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;color:#fff;flex-shrink:0}
+    .rname{font-size:14px;font-weight:500}
+    .rdest{font-size:12px;color:var(--so);margin-top:2px}
+    .rqm{font-size:30px;color:var(--sl);line-height:1;margin-bottom:10px;font-family:Georgia,serif}
+    .rtext{font-size:13px;color:var(--muted);line-height:1.8;font-style:italic}
+    .rstars{color:var(--so);font-size:14px;margin-top:16px;letter-spacing:2px}
+    .rpl{border:2px dashed #d8cce8;background:transparent}
+    .rpl .rtext,.rpl .rname{color:#b8a8d8}
+    .rpl .ravatar{background:#d8cce8}
+
+    /* IA */
+    .ia-sec{background:var(--sp);padding:72px 32px}
+    .ia-in{max-width:900px;margin:0 auto}
+    .ia-top{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center;margin-bottom:60px}
+    .ia-ey{display:inline-block;border:1px solid var(--so);color:var(--so);font-size:10px;letter-spacing:2px;padding:5px 15px;border-radius:20px;margin-bottom:22px;font-weight:600}
+    .ia-left h2{font-size:30px;font-weight:600;color:#fff;line-height:1.35;margin-bottom:18px}
+    .tach{color:var(--sl);position:relative;display:inline-block}
+    .tach::after{content:'';position:absolute;left:0;top:50%;width:100%;height:2px;background:var(--so)}
+    .ia-left h2 em{color:var(--so);font-style:normal}
+    .ia-left p{color:var(--sl);font-size:14px;line-height:1.85}
+    .ia-right{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);border-radius:14px;padding:30px}
+    .ia-qm{font-size:42px;color:var(--so);line-height:1;margin-bottom:10px;font-family:Georgia,serif}
+    .ia-qt{font-size:15px;color:#fff;line-height:1.85;margin-bottom:22px;font-style:italic}
+    .ia-au{display:flex;align-items:center;gap:12px}
+    .ia-dot{width:38px;height:38px;border-radius:50%;background:var(--so);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:#fff}
+    .ia-an{font-size:13px;color:#fff;font-weight:500}
+    .ia-ar{font-size:11px;color:var(--sl);margin-top:2px}
+    .ia-jrn{display:grid;grid-template-columns:1fr 1fr 1fr;border:1px solid rgba(255,255,255,.15);border-radius:14px;overflow:hidden}
+    .ia-st{padding:30px 26px;border-right:1px solid rgba(255,255,255,.1)}
+    .ia-st:last-child{border-right:none}
+    .ia-sn{font-size:11px;color:var(--so);letter-spacing:1.5px;margin-bottom:18px;font-weight:600}
+    .ia-sl{width:30px;height:2px;background:var(--so);margin-bottom:18px}
+    .ia-sh{font-size:17px;font-weight:500;color:#fff;margin-bottom:10px}
+    .ia-sd{font-size:13px;color:var(--sl);line-height:1.75}
+    .ia-cta{display:flex;align-items:center;justify-content:space-between;margin-top:44px;padding-top:38px;border-top:1px solid rgba(255,255,255,.12);flex-wrap:wrap;gap:18px}
+    .ia-ct{font-size:21px;font-weight:500;color:#fff;max-width:440px;line-height:1.4}
+    .ia-ct span{color:var(--so)}
+    .ia-cb{background:var(--so);color:#fff;border:none;padding:15px 34px;border-radius:30px;font-size:14px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;transition:opacity .2s;white-space:nowrap}
+    .ia-cb:hover{opacity:.9}
+
+    /* FOOTER */
+    footer{background:var(--spd);padding:40px 32px;text-align:center}
+    footer p{color:var(--sl);font-size:13px;line-height:1.9}
+    footer strong{color:#fff}
+    .flinks{display:flex;gap:24px;justify-content:center;margin-top:18px;flex-wrap:wrap}
+    .flinks a{color:var(--so);font-size:13px;text-decoration:none;cursor:pointer;transition:color .2s}
+    .flinks a:hover{color:#fff}
+
+    /* WA FLOAT */
+    .waf{position:fixed;bottom:28px;right:28px;background:#25D366;color:#fff;border:none;border-radius:50px;padding:13px 22px;font-size:14px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:9px;box-shadow:0 4px 20px rgba(37,211,102,.35);z-index:300;font-family:'Inter',sans-serif;transition:opacity .2s}
+    .waf:hover{opacity:.92}
+
+    @media(max-width:768px){
+      nav{padding:0 16px}.nav-center{display:none}
+      .hero{padding:44px 16px 0}.hero h1{font-size:26px}
+      .search-box{padding:20px 16px 0}
+      .search-fields{grid-template-columns:1fr;gap:10px}
+      .search-btn{width:100%;justify-content:center}
+      .packs-section{padding:0 16px 44px}
+      .dest-strip{padding:28px 16px}
+      .res-section{padding:48px 16px}
+      .ia-sec{padding:52px 16px}
+      .ia-top{grid-template-columns:1fr;gap:32px}
+      .ia-jrn{grid-template-columns:1fr}
+      .ia-st{border-right:none;border-bottom:1px solid rgba(255,255,255,.1)}
+      .ia-st:last-child{border-bottom:none}
+      footer{padding:32px 16px}
+      .waf{bottom:16px;right:16px;padding:11px 16px;font-size:13px}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">SHIP <span>EXPERIENCE</span></a>
+  <div class="nav-center">
+    <button class="nav-tab active" id="nt-grupal" onclick="switchMode('grupal')">Paquetes grupales</button>
+    <button class="nav-tab" id="nt-pers" onclick="switchMode('personalizado')">Experiencias personalizadas</button>
+  </div>
+  <div class="nav-right">
+    <a class="nav-ig" href="https://www.instagram.com/shipexperience/" target="_blank" rel="noopener">@shipexperience</a>
+    <button class="nav-cta" onclick="openWA('Hola! Quiero diseñar mi viaje con Ship Experience')">Diseñá tu viaje</button>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-badge">INTELIGENCIA ARTESANAL</div>
+  <h1>Tu viaje, <span>diseñado</span> para vos</h1>
+  <p>No vendemos paquetes. Diseñamos experiencias con nombre, apellido y el toque que transforma un destino en un recuerdo.</p>
+
+  <div class="search-box">
+    <div class="search-tabs">
+      <button class="stab active" id="st-grupal" onclick="switchMode('grupal')">Paquetes grupales</button>
+      <button class="stab" id="st-pers" onclick="switchMode('personalizado')">Experiencias personalizadas</button>
+    </div>
+    <div class="search-fields">
+      <div class="sf-group">
+        <label class="sf-label">¿A dónde querés ir?</label>
+        <select class="sf-select" id="s-dest" onchange="doSearch()">
+          <option value="">Todos los destinos</option>
+          <optgroup label="🇦🇷 Argentina">
+            <option value="norte">Norte Argentino (Salta, Jujuy, Tucumán)</option>
+            <option value="iguazu">Cataratas del Iguazú</option>
+            <option value="bariloche">Bariloche</option>
+            <option value="calafate">El Calafate</option>
+            <option value="ushuaia">Ushuaia</option>
+            <option value="mendoza">Mendoza</option>
+            <option value="sanrafael">San Rafael</option>
+            <option value="sanjuan">San Juan</option>
+            <option value="larioja">La Rioja</option>
+            <option value="catamarca">Catamarca</option>
+            <option value="cordoba">Córdoba</option>
+            <option value="chubut">Chubut / Puerto Madryn</option>
+          </optgroup>
+          <optgroup label="🌎 Internacional">
+            <option value="puntacana">Punta Cana</option>
+            <option value="brasil">Brasil</option>
+            <option value="caribe">Caribe</option>
+            <option value="europa">Europa</option>
+            <option value="deportivos">Eventos deportivos</option>
+          </optgroup>
+        </select>
+      </div>
+      <div class="sf-group">
+        <label class="sf-label">¿Cuándo viajás?</label>
+        <select class="sf-select" id="s-mes" onchange="doSearch()">
+          <option value="">Cualquier mes</option>
+          <option value="mayo">Mayo 2026</option>
+          <option value="junio">Junio 2026</option>
+          <option value="julio">Julio 2026</option>
+          <option value="agosto">Agosto 2026</option>
+          <option value="septiembre">Septiembre 2026</option>
+          <option value="octubre">Octubre 2026</option>
+          <option value="noviembre">Noviembre 2026</option>
+          <option value="diciembre">Diciembre 2026</option>
+        </select>
+      </div>
+      <div class="sf-group">
+        <label class="sf-label">¿Desde dónde partís?</label>
+        <select class="sf-select" id="s-orig">
+          <option value="">Cualquier ciudad</option>
+          <option value="bue">Buenos Aires (EZE / AEP)</option>
+          <option value="mdz">Mendoza</option>
+          <option value="cor">Córdoba</option>
+          <option value="ros">Rosario</option>
+          <option value="tuc">Tucumán</option>
+          <option value="sal">Salta</option>
+          <option value="nqn">Neuquén</option>
+          <option value="brc">Bariloche</option>
+          <option value="mdq">Mar del Plata</option>
+          <option value="slu">San Luis</option>
+          <option value="pos">Posadas</option>
+          <option value="rgl">Río Gallegos</option>
+        </select>
+      </div>
+      <button class="search-btn" onclick="doSearch()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        Buscar
+      </button>
+    </div>
+  </div>
+</section>
+
+<div class="results-bar" id="rbar"></div>
+
+<section class="packs-section">
+  <div class="packs-inner">
+    <div class="section-header">
+      <h2 id="sec-title">Paquetes grupales disponibles</h2>
+      <span id="sec-count">3 salidas</span>
+    </div>
+
+    <div id="pg-grupal" class="pgrid">
+
+      <div class="pc" data-dest="iguazu" data-mes="junio">
+        <div class="pch">
+          <img src="https://images.unsplash.com/photo-1551009175-8a68da93d5f9?w=600&q=80" alt="Cataratas del Iguazú" loading="lazy">
+          <div class="pch-ov"></div>
+          <div class="pch-ct"><div class="pdest">Cataratas del Iguazú</div><div class="pdates">19 al 22 de junio 2026 · 3 noches</div></div>
+          <div class="pbadge g">GRUPAL</div>
+        </div>
+        <div class="pbody">
+          <div class="photel">Complejo Americano 3 estrellas</div>
+          <ul class="pinc">
+            <li>Vuelos Ezeiza / Iguazú / Ezeiza</li>
+            <li>Traslados in/out aeropuerto-hotel</li>
+            <li>Excursión Cataratas Argentinas y Brasil</li>
+            <li>Media pensión · Asistencia al viajero</li>
+          </ul>
+          <div class="pwarn">⚠ No incluye entradas a los parques</div>
+          <div class="pfoot">
+            <div><div class="pplabel">por persona</div><div class="pprice">$800.000</div></div>
+            <button class="pbtn" onclick="openWA('Hola! Me interesa el paquete grupal Cataratas 19/06 al 22/06. ¿Hay disponibilidad?')">Consultar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="pc" data-dest="iguazu" data-mes="mayo">
+        <div class="pch">
+          <img src="https://images.unsplash.com/photo-1544735716-ea9ef790f501?w=600&q=80" alt="Cataratas del Iguazú" loading="lazy">
+          <div class="pch-ov"></div>
+          <div class="pch-ct"><div class="pdest">Cataratas del Iguazú</div><div class="pdates">29 de mayo al 01 de junio 2026 · 3 noches</div></div>
+          <div class="pbadge g">GRUPAL</div>
+        </div>
+        <div class="pbody">
+          <div class="photel">Grand Crucero Iguazú 4 estrellas</div>
+          <ul class="pinc">
+            <li>Vuelos Aeroparque / Iguazú / Aeroparque</li>
+            <li>Traslados in/out aeropuerto-hotel</li>
+            <li>Excursión Cataratas Argentinas y Brasil</li>
+            <li>Media pensión · Asistencia al viajero</li>
+          </ul>
+          <div class="pwarn">⚠ No incluye entradas a los parques</div>
+          <div class="pfoot">
+            <div><div class="pplabel">por persona</div><div class="pprice">$650.000</div></div>
+            <button class="pbtn" onclick="openWA('Hola! Me interesa el paquete grupal Cataratas 29/05 al 01/06. ¿Hay disponibilidad?')">Consultar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="pc" data-dest="puntacana" data-mes="octubre">
+        <div class="pch">
+          <img src="https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=600&q=80" alt="Punta Cana" loading="lazy">
+          <div class="pch-ov"></div>
+          <div class="pch-ct"><div class="pdest">Punta Cana</div><div class="pdates">16 al 24 de octubre 2026 · 8 noches</div></div>
+          <div class="pbadge g">GRUPAL</div>
+        </div>
+        <div class="pbody">
+          <div class="photel">Bahia Principe Grand Punta Cana 5 estrellas</div>
+          <ul class="pinc">
+            <li>8 noches all inclusive</li>
+            <li>Vuelos desde Mendoza con Arajet · valija 23kg</li>
+            <li>Traslados llegada y salida · Asistencia al viajero</li>
+          </ul>
+          <div class="pfoot">
+            <div><div class="pplabel">por persona</div><div class="pprice">U$S 1.860</div></div>
+            <button class="pbtn" onclick="openWA('Hola! Me interesa el paquete grupal Punta Cana octubre 2026. ¿Hay disponibilidad?')">Consultar</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div id="pg-pers" class="pgrid hidden">
+
+      <div class="pc" data-dest="puntacana" data-mes="noviembre">
+        <div class="pch">
+          <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80" alt="Punta Cana" loading="lazy">
+          <div class="pch-ov"></div>
+          <div class="pch-ct"><div class="pdest">Punta Cana</div><div class="pdates">14 al 22 de noviembre 2026 · 8 noches</div></div>
+          <div class="pbadge p">PERSONALIZADO</div>
+        </div>
+        <div class="pbody">
+          <div class="photel">Bahia Principe Grand Turquesa 5 estrellas</div>
+          <ul class="pinc">
+            <li>8 noches all inclusive</li>
+            <li>Vuelos desde Mendoza con Latam · escala Lima · carry on 12kg</li>
+            <li>Traslados · Asistencia al viajero (Universal Assistance)</li>
+          </ul>
+          <div class="pfoot">
+            <div><div class="pplabel">por persona</div><div class="pprice">U$S 1.890</div></div>
+            <button class="pbtn" onclick="openWA('Hola! Me interesa la experiencia personalizada Punta Cana noviembre 2026. ¿Hay disponibilidad?')">Consultar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="pc pc-invite" onclick="openWA('Hola! Quiero diseñar un viaje personalizado con Ship Experience')">
+        <div>
+          <div class="inv-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6B4FA0" stroke-width="1.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+          <div style="font-size:16px;font-weight:500;color:var(--sp);margin-bottom:10px">¿Tenés un destino en mente?</div>
+          <div style="font-size:13px;color:var(--muted);line-height:1.7">Contanos a dónde querés ir y diseñamos tu experiencia desde cero.</div>
+          <div style="margin-top:18px;font-size:13px;color:var(--so);font-weight:500">Escribinos por WhatsApp →</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="no-res" id="no-res">
+      <h3>No encontramos paquetes para ese destino todavía</h3>
+      <p>Pero podemos diseñar tu viaje a medida.<br>Contanos a dónde querés ir y nos encargamos de todo.</p>
+      <button class="btn-wa" id="no-res-btn">Consultar por WhatsApp</button>
+    </div>
+
+  </div>
+</section>
+
+<div class="dest-strip">
+  <div class="dest-inner">
+    <h2>Explorá destinos</h2>
+    <div class="dest-grid">
+      <div class="dchip" onclick="filterDest('norte')"><div class="dchip-icon">🏔</div><div class="dchip-name">Norte Argentino</div><div class="dchip-sub">Salta · Jujuy · Tucumán</div></div>
+      <div class="dchip" onclick="filterDest('iguazu')"><div class="dchip-icon">💧</div><div class="dchip-name">Cataratas</div><div class="dchip-sub">Iguazú</div></div>
+      <div class="dchip" onclick="filterDest('bariloche')"><div class="dchip-icon">🌲</div><div class="dchip-name">Bariloche</div><div class="dchip-sub">Patagonia</div></div>
+      <div class="dchip" onclick="filterDest('calafate')"><div class="dchip-icon">🧊</div><div class="dchip-name">El Calafate</div><div class="dchip-sub">Glaciares</div></div>
+      <div class="dchip" onclick="filterDest('ushuaia')"><div class="dchip-icon">⛵</div><div class="dchip-name">Ushuaia</div><div class="dchip-sub">Fin del mundo</div></div>
+      <div class="dchip" onclick="filterDest('mendoza')"><div class="dchip-icon">🍷</div><div class="dchip-name">Mendoza</div><div class="dchip-sub">Cuyo · Bodegas</div></div>
+      <div class="dchip" onclick="filterDest('puntacana')"><div class="dchip-icon">🏖</div><div class="dchip-name">Punta Cana</div><div class="dchip-sub">Caribe</div></div>
+      <div class="dchip" onclick="filterDest('brasil')"><div class="dchip-icon">🌊</div><div class="dchip-name">Brasil</div><div class="dchip-sub">Playas · Cultura</div></div>
+      <div class="dchip" onclick="filterDest('europa')"><div class="dchip-icon">🗺</div><div class="dchip-name">Europa</div><div class="dchip-sub">Próximamente</div></div>
+      <div class="dchip" onclick="filterDest('deportivos')"><div class="dchip-icon">🏆</div><div class="dchip-name">Eventos</div><div class="dchip-sub">Mundial · F1</div></div>
+    </div>
+  </div>
+</div>
+
+<section class="res-section" id="resenas">
+  <div class="s-inner">
+    <div class="eyebrow">TRIPULANTES</div>
+    <div class="s-title">Historias que vale la pena contar</div>
+    <div class="s-sub">Experiencias reales de quienes ya subieron a bordo. Cada viaje deja una historia — estas son las suyas.</div>
+    <div class="rgrid">
+      <div class="rcard rpl"><div class="rcard-top"><div class="ravatar">?</div><div><div class="rname">Próximamente</div><div class="rdest">Reseña real de tripulante</div></div></div><div class="rqm">"</div><div class="rtext">Aquí van las experiencias reales compartidas por WhatsApp. ¡Muy pronto!</div><div class="rstars">★ ★ ★ ★ ★</div></div>
+      <div class="rcard rpl"><div class="rcard-top"><div class="ravatar">?</div><div><div class="rname">Próximamente</div><div class="rdest">Reseña real de tripulante</div></div></div><div class="rqm">"</div><div class="rtext">Cada historia real le da confianza a quienes visiten el sitio por primera vez.</div><div class="rstars">★ ★ ★ ★ ★</div></div>
+      <div class="rcard rpl"><div class="rcard-top"><div class="ravatar">?</div><div><div class="rname">Próximamente</div><div class="rdest">Reseña real de tripulante</div></div></div><div class="rqm">"</div><div class="rtext">¿Ya viajaste con Ship? Tu historia puede estar acá.</div><div class="rstars">★ ★ ★ ★ ★</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="ia-sec">
+  <div class="ia-in">
+    <div class="ia-top">
+      <div class="ia-left">
+        <div class="ia-ey">SHIP ES IA</div>
+        <h2>No <span class="tach">inteligencia artificial</span>.<br><em>Inteligencia Artesanal.</em></h2>
+        <p>Escuchamos tus historias, entendemos tus gustos y hasta tus pequeñas manías para que cada momento encaje con vos. Porque lo nuestro no es apretar un botón — es diseñar tu viaje desde la empatía.</p>
+      </div>
+      <div class="ia-right">
+        <div class="ia-qm">"</div>
+        <div class="ia-qt">Nos contaste a dónde querías ir. Te preguntamos cosas. Te escuchamos. Y ahí empezó el viaje, incluso antes de que armaras la valija.</div>
+        <div class="ia-au"><div class="ia-dot">SE</div><div><div class="ia-an">Ship Experience</div><div class="ia-ar">Inteligencia Artesanal · Argentina</div></div></div>
+      </div>
+    </div>
+    <div class="ia-jrn">
+      <div class="ia-st"><div class="ia-sn">01 — ANTES</div><div class="ia-sl"></div><div class="ia-sh">Diseñamos juntos</div><div class="ia-sd">Todo lo necesario para arrancar seguro. Ruta, alojamiento, detalle a detalle. Sin moldes ni fórmulas.</div></div>
+      <div class="ia-st"><div class="ia-sn">02 — DURANTE</div><div class="ia-sl"></div><div class="ia-sh">Navegamos juntos</div><div class="ia-sd">Seguimos ahí, listos para resolver y mejorar cada momento del viaje en tiempo real.</div></div>
+      <div class="ia-st"><div class="ia-sn">03 — DESPUÉS</div><div class="ia-sl"></div><div class="ia-sh">Seguimos en contacto</div><div class="ia-sd">El vínculo no termina con la llegada. Cada tripulante pasa a ser parte de nuestra nave para siempre.</div></div>
+    </div>
+    <div class="ia-cta">
+      <div class="ia-ct">¿Querés que armemos juntos <span>un viaje a tu medida?</span></div>
+      <button class="ia-cb" onclick="openWA('Hola! Quiero diseñar mi viaje con Ship Experience. ¿Por dónde empezamos?')">Hablemos por WhatsApp</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p><strong>SHIP EXPERIENCE</strong><br>Inteligencia Artesanal · Agencia de viajes argentina</p>
+  <div class="flinks">
+    <a onclick="openWA('Hola! Quiero consultar sobre un viaje con Ship Experience')">WhatsApp +54 11 7064-7148</a>
+    <a href="https://www.instagram.com/shipexperience/" target="_blank" rel="noopener">Instagram @shipexperience</a>
+  </div>
+  <p style="margin-top:18px;font-size:11px;opacity:.6">© 2026 Ship Experience · shipexperience.com.ar</p>
+</footer>
+
+<button class="waf" onclick="openWA('Hola! Quiero consultar sobre un viaje con Ship Experience')">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.554 4.103 1.523 5.824L.057 23.882a.5.5 0 0 0 .61.61l6.058-1.466A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.65-.52-5.16-1.424l-.36-.214-3.737.904.919-3.636-.235-.374A9.96 9.96 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+  Consultar por WhatsApp
+</button>
+
+<script>
+var mode = 'grupal';
+
+function switchMode(m) {
+  mode = m;
+  var isG = m === 'grupal';
+  document.getElementById('pg-grupal').classList.toggle('hidden', !isG);
+  document.getElementById('pg-pers').classList.toggle('hidden', isG);
+  document.getElementById('nt-grupal').classList.toggle('active', isG);
+  document.getElementById('nt-pers').classList.toggle('active', !isG);
+  document.getElementById('st-grupal').classList.toggle('active', isG);
+  document.getElementById('st-pers').classList.toggle('active', !isG);
+  document.getElementById('sec-title').textContent = isG ? 'Paquetes grupales disponibles' : 'Experiencias personalizadas';
+  document.getElementById('no-res').classList.remove('on');
+  showAll();
+  updateCount();
+  document.querySelector('.packs-section').scrollIntoView({behavior:'smooth'});
+}
+
+function showAll() {
+  document.querySelectorAll('#pg-'+mode+' .pc').forEach(function(c){ c.style.display=''; });
+}
+
+function updateCount() {
+  var v = document.querySelectorAll('#pg-'+mode+' .pc:not(.pc-invite)').length;
+  var vis = Array.from(document.querySelectorAll('#pg-'+mode+' .pc:not(.pc-invite)')).filter(function(c){ return c.style.display !== 'none'; }).length;
+  document.getElementById('sec-count').textContent = vis + (vis===1?' salida':' salidas');
+}
+
+function doSearch() {
+  var dest = document.getElementById('s-dest').value;
+  var mes = document.getElementById('s-mes').value;
+  var grid = document.getElementById('pg-'+mode);
+  var cards = grid.querySelectorAll('.pc:not(.pc-invite)');
+  var found = 0;
+
+  cards.forEach(function(c) {
+    var dm = !dest || c.dataset.dest === dest;
+    var mm = !mes || c.dataset.mes === mes;
+    c.style.display = (dm && mm) ? '' : 'none';
+    if(dm && mm) found++;
+  });
+
+  var noR = document.getElementById('no-res');
+  var inv = grid.querySelector('.pc-invite');
+  var bar = document.getElementById('rbar');
+
+  if(found === 0) {
+    noR.classList.add('on');
+    if(inv) inv.style.display = 'none';
+    var sel1 = document.getElementById('s-dest');
+    var sel2 = document.getElementById('s-mes');
+    var dLabel = sel1.options[sel1.selectedIndex].text;
+    var mLabel = sel2.options[sel2.selectedIndex].text;
+    var msg = 'Hola! Estoy buscando un viaje';
+    if(dest) msg += ' a ' + dLabel;
+    if(mes) msg += ' en ' + mLabel;
+    msg += '. ¿Pueden ayudarme?';
+    document.getElementById('no-res-btn').onclick = function(){ openWA(msg); };
+  } else {
+    noR.classList.remove('on');
+    if(inv) inv.style.display = '';
+  }
+
+  if(dest || mes) {
+    bar.classList.add('on');
+    var sel1b = document.getElementById('s-dest');
+    var sel2b = document.getElementById('s-mes');
+    var t = 'Mostrando ' + found + ' resultado' + (found!==1?'s':'');
+    if(dest) t += ' para <strong>' + sel1b.options[sel1b.selectedIndex].text + '</strong>';
+    if(mes) t += ' en <strong>' + sel2b.options[sel2b.selectedIndex].text + '</strong>';
+    t += ' &nbsp;·&nbsp; <a href="#" onclick="clearSearch(event)">Ver todos</a>';
+    bar.innerHTML = t;
+  } else {
+    bar.classList.remove('on');
+  }
+  updateCount();
+}
+
+function clearSearch(e) {
+  if(e) e.preventDefault();
+  document.getElementById('s-dest').value = '';
+  document.getElementById('s-mes').value = '';
+  document.getElementById('s-orig').value = '';
+  doSearch();
+}
+
+function filterDest(dest) {
+  document.getElementById('s-dest').value = dest;
+  var inCur = document.querySelector('#pg-'+mode+' .pc[data-dest="'+dest+'"]');
+  if(!inCur) {
+    var other = mode==='grupal'?'pers':'grupal';
+    var inOther = document.querySelector('#pg-'+other+' .pc[data-dest="'+dest+'"]');
+    if(inOther) switchMode(other==='pers'?'personalizado':'grupal');
+  }
+  doSearch();
+  document.querySelector('.packs-section').scrollIntoView({behavior:'smooth'});
+}
+
+function openWA(msg) {
+  window.open('https://wa.me/541170647148?text='+encodeURIComponent(msg),'_blank');
+}
+</script>
+</body>
+</html>
