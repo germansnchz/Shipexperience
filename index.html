@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Ship Experience – Inteligencia Artesanal para tu próximo viaje. Paquetes grupales y experiencias personalizadas en Argentina y el mundo.">
+  <meta name="description" content="Ship Experience – Inteligencia Artesanal para tu próximo viaje. Agencia de viajes registrada RNAV Legajo 20.395.">
   <meta property="og:title" content="Ship Experience – Inteligencia Artesanal">
   <meta property="og:description" content="Diseñamos experiencias para que viajes como vos querés.">
   <title>Ship Experience – Inteligencia Artesanal</title>
@@ -12,38 +12,78 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-    :root{
-      --sp:#6B4FA0;--so:#F5A623;--sl:#B8A8D8;--spd:#4a3570;--spl:#f0ebfa;
-      --text:#1a1a2e;--muted:#6b7280;--border:#e5e7eb;--white:#fff;
-    }
+    :root{--sp:#6B4FA0;--so:#F5A623;--sl:#B8A8D8;--spd:#4a3570;--spl:#f0ebfa;--text:#1a1a2e;--muted:#6b7280;--border:#e5e7eb}
     html{scroll-behavior:smooth}
     body{font-family:'Inter',sans-serif;color:var(--text);background:#fff;overflow-x:hidden}
 
     /* ── NAV ── */
-    nav{background:var(--sp);padding:0 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:300;height:60px;gap:12px}
+    nav{background:var(--sp);padding:0 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:300;height:60px;gap:10px}
     .nav-logo{color:#fff;font-size:19px;font-weight:700;letter-spacing:1px;text-decoration:none;flex-shrink:0}
     .nav-logo span{color:var(--so)}
     .nav-center{display:flex;gap:2px}
-    .nav-tab{background:none;border:none;color:var(--sl);font-size:13px;font-weight:500;cursor:pointer;padding:7px 14px;border-radius:20px;transition:all .2s;font-family:'Inter',sans-serif;white-space:nowrap}
+    .nav-tab{background:none;border:none;color:var(--sl);font-size:13px;font-weight:500;cursor:pointer;padding:7px 13px;border-radius:20px;transition:all .2s;font-family:'Inter',sans-serif;white-space:nowrap}
     .nav-tab:hover{color:#fff;background:rgba(255,255,255,.1)}
     .nav-tab.active{color:#fff;background:rgba(255,255,255,.15)}
-    .nav-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
-    .nav-ghost{color:var(--sl);font-size:13px;text-decoration:none;transition:color .2s;background:none;border:none;font-family:'Inter',sans-serif;cursor:pointer;padding:0;white-space:nowrap}
-    .nav-ghost:hover{color:#fff}
+    .nav-right{display:flex;align-items:center;gap:8px;flex-shrink:0;position:relative}
     .nav-social{display:flex;align-items:center;gap:6px}
     .nav-social a{color:rgba(255,255,255,.5);transition:color .2s;display:flex;align-items:center}
     .nav-social a:hover{color:#fff}
+
+    /* Menú institucional */
+    .nav-menu-btn{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:var(--sl);padding:7px 12px;border-radius:20px;cursor:pointer;font-family:'Inter',sans-serif;font-size:12px;font-weight:500;display:flex;align-items:center;gap:5px;transition:all .2s;white-space:nowrap}
+    .nav-menu-btn:hover{color:#fff;background:rgba(255,255,255,.14)}
+    .nav-menu-btn svg{transition:transform .2s}
+    .nav-menu-btn.open svg{transform:rotate(180deg)}
+    .nav-dropdown{position:absolute;top:calc(100% + 10px);right:0;background:#fff;border-radius:12px;border:1px solid var(--border);min-width:240px;box-shadow:0 8px 32px rgba(0,0,0,.12);opacity:0;pointer-events:none;transform:translateY(-6px);transition:all .2s;z-index:400}
+    .nav-dropdown.open{opacity:1;pointer-events:all;transform:translateY(0)}
+    .nav-dd-header{padding:12px 16px;border-bottom:1px solid var(--border)}
+    .nav-dd-legajo{font-size:11px;color:var(--muted);font-weight:500}
+    .nav-dd-legajo strong{color:var(--sp)}
+    .nav-dd-item{display:flex;align-items:center;gap:10px;padding:11px 16px;font-size:13px;color:var(--text);cursor:pointer;transition:background .15s;text-decoration:none}
+    .nav-dd-item:hover{background:var(--spl);color:var(--sp)}
+    .nav-dd-item svg{color:var(--so);flex-shrink:0}
+    .nav-dd-divider{height:1px;background:var(--border);margin:4px 0}
+    .nav-dd-rnav{padding:10px 16px;font-size:11px;color:var(--muted);display:flex;align-items:center;gap:6px}
+    .nav-dd-rnav a{color:var(--sp);text-decoration:none;font-weight:500}
+    .nav-dd-rnav a:hover{text-decoration:underline}
+
     .nav-cta{background:var(--so);color:#fff;border:none;padding:8px 16px;border-radius:20px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:opacity .2s;white-space:nowrap}
     .nav-cta:hover{opacity:.88}
 
+    /* ── PÁGINAS INTERNAS (modales de contenido) ── */
+    .page-modal{position:fixed;inset:0;background:rgba(15,10,30,.8);z-index:600;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .3s}
+    .page-modal.open{opacity:1;pointer-events:all}
+    .page-inner{background:#fff;border-radius:16px;max-width:680px;width:100%;max-height:90vh;overflow-y:auto;transform:translateY(16px);transition:transform .3s;position:relative}
+    .page-modal.open .page-inner{transform:translateY(0)}
+    .page-head{background:var(--sp);border-radius:16px 16px 0 0;padding:24px 28px;position:sticky;top:0;z-index:10}
+    .page-head-tag{font-size:10px;color:var(--so);letter-spacing:2px;font-weight:600;margin-bottom:6px}
+    .page-head-title{font-size:20px;font-weight:700;color:#fff}
+    .page-close{position:absolute;top:16px;right:16px;background:rgba(255,255,255,.15);border:none;color:#fff;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:background .2s}
+    .page-close:hover{background:rgba(255,255,255,.3)}
+    .page-body{padding:24px 28px 32px}
+    .page-body h3{font-size:15px;font-weight:600;color:var(--sp);margin:20px 0 8px}
+    .page-body h3:first-child{margin-top:0}
+    .page-body p{font-size:13px;color:var(--muted);line-height:1.8;margin-bottom:10px}
+    .page-body ul{margin:8px 0 12px 18px}
+    .page-body ul li{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:4px}
+    .page-body .highlight{background:var(--spl);border-left:3px solid var(--sp);padding:12px 16px;border-radius:0 8px 8px 0;margin:14px 0;font-size:13px;color:var(--text);line-height:1.7}
+    .page-body .step{display:flex;gap:14px;margin-bottom:16px;align-items:flex-start}
+    .page-body .step-num{width:28px;height:28px;border-radius:50%;background:var(--sp);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+    .page-body .step-text{font-size:13px;color:var(--text);line-height:1.7}
+    .page-body .step-text strong{color:var(--sp)}
+    .page-cta{display:flex;align-items:center;justify-content:center;margin-top:24px}
+    .page-cta button{background:var(--so);color:#fff;border:none;padding:13px 28px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:opacity .2s}
+    .page-cta button:hover{opacity:.88}
+
     /* ── HERO ── */
-    .hero{background:var(--sp);padding:52px 32px 0;text-align:center;position:relative;overflow:hidden}
+    .hero{background:var(--sp);padding:44px 32px 0;text-align:center;position:relative;overflow:hidden}
     .hero::before{content:'';position:absolute;width:500px;height:500px;border-radius:50%;border:1px solid rgba(255,255,255,.05);top:-200px;right:-100px;pointer-events:none}
     .hero::after{content:'';position:absolute;width:300px;height:300px;border-radius:50%;border:1px solid rgba(255,255,255,.05);top:-50px;right:80px;pointer-events:none}
-    .hero-badge{display:inline-block;background:rgba(245,166,35,.18);color:var(--so);font-size:10px;padding:5px 16px;border-radius:20px;letter-spacing:2px;margin-bottom:20px;font-weight:600;position:relative}
-    .hero h1{font-size:40px;font-weight:700;color:#fff;line-height:1.2;max-width:560px;margin:0 auto 14px;position:relative}
+    .hero-logo{display:block;margin:0 auto 20px;width:90px;height:90px;object-fit:contain;position:relative}
+    .hero-badge{display:inline-block;background:rgba(245,166,35,.18);color:var(--so);font-size:10px;padding:5px 16px;border-radius:20px;letter-spacing:2px;margin-bottom:18px;font-weight:600;position:relative}
+    .hero h1{font-size:38px;font-weight:700;color:#fff;line-height:1.2;max-width:540px;margin:0 auto 14px;position:relative}
     .hero h1 span{color:var(--so)}
-    .hero p{color:var(--sl);font-size:15px;max-width:440px;margin:0 auto 32px;line-height:1.75;position:relative}
+    .hero p{color:var(--sl);font-size:15px;max-width:420px;margin:0 auto 32px;line-height:1.75;position:relative}
 
     /* ── BUSCADOR ── */
     .search-box{background:#fff;border-radius:16px 16px 0 0;padding:28px 28px 0;max-width:880px;margin:0 auto;position:relative}
@@ -64,38 +104,38 @@
     /* ── BANNERS ── */
     .bw{width:100%;overflow:hidden;position:relative;background:var(--sp)}
     .btrack{display:flex;transition:transform .6s cubic-bezier(.77,0,.18,1)}
-    .bslide{min-width:100%;min-height:196px;position:relative;display:flex;align-items:stretch;overflow:hidden;flex-shrink:0}
+    .bslide{min-width:100%;min-height:190px;position:relative;display:flex;align-items:stretch;overflow:hidden;flex-shrink:0}
     .bgeo{position:absolute;inset:0;overflow:hidden;pointer-events:none}
     .bgeo-c{position:absolute;border-radius:50%;border:1px solid rgba(255,255,255,.07)}
     .bgeo-l{position:absolute;background:rgba(255,255,255,.04)}
-    .bs-content{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;width:100%;padding:32px 48px;gap:28px}
+    .bs-content{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;width:100%;padding:30px 48px;gap:28px}
     .bs-left{flex:1;min-width:0}
-    .bs-tag{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:600;letter-spacing:2px;color:rgba(255,255,255,.45);margin-bottom:12px}
+    .bs-tag{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:600;letter-spacing:2px;color:rgba(255,255,255,.45);margin-bottom:10px}
     .bs-tagdot{width:4px;height:4px;border-radius:50%;background:var(--so);flex-shrink:0}
-    .bs-accent{width:28px;height:2px;background:var(--so);margin-bottom:14px}
-    .bs-title{font-size:24px;font-weight:700;color:#fff;line-height:1.2;margin-bottom:9px;font-family:'Inter',sans-serif}
+    .bs-accent{width:28px;height:2px;background:var(--so);margin-bottom:12px}
+    .bs-title{font-size:22px;font-weight:700;color:#fff;line-height:1.2;margin-bottom:8px}
     .bs-title em{color:var(--so);font-style:normal}
-    .bs-desc{font-size:13px;color:rgba(255,255,255,.5);line-height:1.7;max-width:380px}
-    .bs-actions{display:flex;align-items:center;gap:14px;margin-top:18px}
-    .bs-btn{background:var(--so);color:#fff;border:none;padding:10px 22px;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;letter-spacing:.3px;transition:opacity .2s}
+    .bs-desc{font-size:13px;color:rgba(255,255,255,.5);line-height:1.65;max-width:360px}
+    .bs-actions{display:flex;align-items:center;gap:14px;margin-top:16px}
+    .bs-btn{background:var(--so);color:#fff;border:none;padding:9px 20px;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:opacity .2s}
     .bs-btn:hover{opacity:.88}
     .bs-link{font-size:12px;color:rgba(255,255,255,.4);cursor:pointer;border:none;background:none;font-family:'Inter',sans-serif;transition:color .2s}
     .bs-link:hover{color:#fff}
     .bs-right{flex-shrink:0}
-    .bs-panel{border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:22px 26px;text-align:center;background:rgba(255,255,255,.06);min-width:155px}
-    .bs-pbadge{display:inline-block;background:var(--so);color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:4px;letter-spacing:.5px;margin-bottom:10px}
-    .bs-pbig{font-size:40px;font-weight:700;color:#fff;line-height:1;font-family:'Inter',sans-serif}
+    .bs-panel{border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:20px 24px;text-align:center;background:rgba(255,255,255,.06);min-width:148px}
+    .bs-pbadge{display:inline-block;background:var(--so);color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:4px;letter-spacing:.5px;margin-bottom:9px}
+    .bs-pbig{font-size:38px;font-weight:700;color:#fff;line-height:1}
     .bs-pbig span{color:var(--so)}
-    .bs-psub{font-size:11px;color:rgba(255,255,255,.4);margin-top:6px;line-height:1.5;letter-spacing:.3px}
+    .bs-psub{font-size:11px;color:rgba(255,255,255,.4);margin-top:5px;line-height:1.5}
     .bprog{height:2px;background:rgba(255,255,255,.08)}
     .bpfill{height:100%;background:var(--so);width:0%;transition:width linear}
-    .bnav{display:flex;align-items:center;justify-content:center;gap:8px;padding:12px;background:rgba(0,0,0,.18)}
+    .bnav{display:flex;align-items:center;justify-content:center;gap:8px;padding:10px;background:rgba(0,0,0,.18)}
     .bdot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.22);cursor:pointer;transition:all .3s}
     .bdot.on{background:var(--so);width:22px;border-radius:3px}
-    .barr{position:absolute;top:50%;transform:translateY(-50%);z-index:10;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;color:#fff}
+    .barr{position:absolute;top:50%;transform:translateY(-50%);z-index:10;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;color:#fff}
     .barr:hover{background:rgba(255,255,255,.16)}
-    .barrl{left:14px}
-    .barrr{right:14px}
+    .barrl{left:12px}
+    .barrr{right:12px}
 
     /* ── PAQUETES ── */
     .packs-sec{background:#fff;padding:0 32px 60px}
@@ -137,7 +177,7 @@
     .no-res p{font-size:14px;color:var(--muted);margin-bottom:24px;line-height:1.7}
     .btn-wa{background:var(--so);color:#fff;border:none;padding:13px 28px;border-radius:25px;font-size:14px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif}
 
-    /* ── MODAL ── */
+    /* ── MODAL PAQUETE ── */
     .modal-bg{position:fixed;inset:0;background:rgba(15,10,30,.75);z-index:500;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .3s}
     .modal-bg.open{opacity:1;pointer-events:all}
     .modal{background:#fff;border-radius:18px;max-width:700px;width:100%;max-height:90vh;overflow-y:auto;position:relative;transform:translateY(20px);transition:transform .3s}
@@ -148,26 +188,23 @@
     .modal-img-ct{position:absolute;bottom:0;left:0;right:0;padding:20px 28px}
     .modal-dest{color:#fff;font-size:24px;font-weight:700;margin-bottom:4px}
     .modal-dates{color:var(--sl);font-size:13px}
-    .modal-close{position:absolute;top:14px;right:14px;background:rgba(0,0,0,.35);border:none;color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;line-height:1;transition:background .2s;z-index:10}
+    .modal-close{position:absolute;top:14px;right:14px;background:rgba(0,0,0,.35);border:none;color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;line-height:1;z-index:10}
     .modal-close:hover{background:rgba(0,0,0,.6)}
     .modal-body{padding:24px 28px 28px}
     .modal-hotel{font-size:14px;color:var(--muted);margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid #f0f0f0}
-    .modal-section{margin-bottom:20px}
-    .modal-section-title{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px}
-    .modal-inc-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .modal-sec-title{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px}
+    .modal-inc-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
     .modal-inc-item{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--text);line-height:1.4}
     .modal-inc-dot{width:7px;height:7px;border-radius:50%;background:var(--so);margin-top:4px;flex-shrink:0}
-    .modal-exc-item{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--muted);line-height:1.4}
-    .modal-exc-x{width:7px;height:7px;border-radius:50%;background:#e5e7eb;margin-top:4px;flex-shrink:0}
     .modal-warn{background:#fefce8;border:1px solid #fef08a;border-radius:8px;padding:10px 14px;font-size:12px;color:#854d0e;margin-bottom:20px}
-    .modal-price-row{display:flex;align-items:center;justify-content:space-between;padding:18px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:20px}
+    .modal-price-row{display:flex;align-items:center;justify-content:space-between;padding:16px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:20px}
     .modal-price-label{font-size:13px;color:var(--muted)}
     .modal-price-val{font-size:28px;font-weight:700;color:var(--sp)}
     .modal-cuota{font-size:12px;color:var(--so);font-weight:600;margin-top:3px}
     .modal-actions{display:flex;gap:10px;flex-wrap:wrap}
-    .modal-btn-main{flex:1;background:var(--so);color:#fff;border:none;padding:14px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:opacity .2s}
+    .modal-btn-main{flex:1;background:var(--so);color:#fff;border:none;padding:13px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:opacity .2s}
     .modal-btn-main:hover{opacity:.88}
-    .modal-btn-sec{flex:1;background:transparent;color:var(--sp);border:2px solid var(--sp);padding:14px;border-radius:10px;font-size:14px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;transition:all .2s}
+    .modal-btn-sec{flex:1;background:transparent;color:var(--sp);border:2px solid var(--sp);padding:13px;border-radius:10px;font-size:14px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;transition:all .2s}
     .modal-btn-sec:hover{background:var(--sp);color:#fff}
     .modal-badge{display:inline-block;background:var(--spl);color:var(--sp);font-size:10px;font-weight:700;padding:4px 12px;border-radius:20px;letter-spacing:.5px;margin-bottom:4px}
 
@@ -255,14 +292,13 @@
     .dest-tico.open{transform:rotate(180deg)}
     .dest-cont{padding:0 32px 36px;display:none}
     .dest-cont.open{display:block}
-    .dest-hint{font-size:13px;color:var(--muted);margin-bottom:16px}
-    .dgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px}
+    .dgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;margin-top:4px}
     .dchip{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px 8px;text-align:center;cursor:pointer;transition:all .2s;display:flex;flex-direction:column;align-items:center}
     .dchip:hover{border-color:var(--sp);background:var(--spl);transform:translateY(-2px)}
     .dchip-ico{font-size:24px;margin-bottom:8px;line-height:1}
     .dchip-name{font-size:12px;font-weight:600;color:var(--text);line-height:1.3}
 
-    /* ── SECCIONES POR DESTINO ── */
+    /* ── SECCIONES DESTINO ── */
     .dsec{padding:60px 32px;border-top:1px solid var(--border)}
     .dsec:nth-child(even){background:#f9f7fc}
     .dsec-in{max-width:960px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
@@ -293,6 +329,9 @@
     .flinks{display:flex;gap:20px;justify-content:center;margin-top:18px;flex-wrap:wrap;position:relative}
     .flinks a{color:var(--so);font-size:13px;text-decoration:none;cursor:pointer;transition:color .2s;display:flex;align-items:center;gap:6px}
     .flinks a:hover{color:#fff}
+    .footer-legal{margin-top:16px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap;position:relative}
+    .footer-legal a{font-size:11px;color:rgba(255,255,255,.35);text-decoration:none;cursor:pointer;transition:color .2s}
+    .footer-legal a:hover{color:var(--sl)}
 
     /* ── WA FLOAT ── */
     .waf{position:fixed;bottom:28px;right:28px;background:#25D366;color:#fff;border:none;border-radius:50px;padding:12px 20px;font-size:14px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:8px;box-shadow:0 4px 18px rgba(37,211,102,.35);z-index:400;font-family:'Inter',sans-serif;transition:opacity .2s}
@@ -300,14 +339,13 @@
 
     /* ── RESPONSIVE ── */
     @media(max-width:768px){
-      nav{padding:0 14px;gap:8px}.nav-center{display:none}
-      .hero{padding:44px 16px 0}.hero h1{font-size:26px}
-      .search-box{padding:20px 16px 0}
+      nav{padding:0 12px;gap:6px}.nav-center{display:none}
+      .hero{padding:36px 16px 0}.hero h1{font-size:24px}.hero-logo{width:72px;height:72px}
+      .search-box{padding:18px 14px 0}
       .search-fields{grid-template-columns:1fr;gap:10px}
       .s-btn{width:100%;justify-content:center}
-      .bs-content{padding:24px 20px;flex-direction:column;align-items:flex-start}
-      .bs-right{display:none}
-      .bs-title{font-size:19px}
+      .bs-content{padding:22px 18px;flex-direction:column;align-items:flex-start}
+      .bs-right{display:none}.bs-title{font-size:18px}
       .packs-sec{padding:0 16px 44px}
       .modal-inc-grid{grid-template-columns:1fr}
       .nos-sec{padding:52px 16px}.nos-grid{grid-template-columns:1fr}.nos-vals{grid-template-columns:1fr 1fr}
@@ -318,17 +356,123 @@
       .dsec{padding:44px 16px}.dsec-in{grid-template-columns:1fr;gap:28px}.dsec-in.rev{direction:ltr}.dimg{height:220px}
       footer{padding:32px 16px}
       .waf{bottom:16px;right:16px;padding:10px 16px;font-size:13px}
-      .modal{max-height:95vh}
-      .modal-body{padding:18px 18px 24px}
+      .nav-dropdown{right:-10px;min-width:210px}
     }
   </style>
 </head>
 <body>
 
-<!-- ── MODAL ── -->
-<div class="modal-bg" id="modal" onclick="closeModal(event)">
+<!-- ── MODALES DE PÁGINAS INSTITUCIONALES ── -->
+
+<!-- Quiénes somos -->
+<div class="page-modal" id="pg-nosotros">
+  <div class="page-inner">
+    <div class="page-head">
+      <div class="page-head-tag">SHIP EXPERIENCE</div>
+      <div class="page-head-title">Quiénes somos</div>
+      <button class="page-close" onclick="closePage('pg-nosotros')">✕</button>
+    </div>
+    <div class="page-body">
+      <div class="highlight">Ship Experience es una agencia de viajes registrada en el <strong>RNAV – Registro Nacional de Agencias de Viajes</strong> bajo el legajo N° 20.395. Podés verificarlo en <a href="https://agenciasdeviajes.ar/?s=20395" target="_blank" rel="noopener" style="color:var(--sp);font-weight:600">agenciasdeviajes.ar</a>.</div>
+      <h3>Nuestra historia</h3>
+      <p>Somos Ger y Maru, dos apasionados del turismo que se conocieron trabajando en la industria y viajando. Nos unió un sueño compartido: ayudar a las personas a crear viajes únicos. Así nació Ship Experience — para que cada experiencia sea diseñada de principio a fin, con la atención y el detalle que merecés.</p>
+      <h3>Ger — Fundador y Director</h3>
+      <p>Docente de Educación Física reconvertido al turismo. Se vincula directamente con los tripulantes y los operadores, maneja las finanzas y el armado de paquetes. Su diferencial está en la atención, el detalle y la relación directa con cada tripulante. Reside en San Rafael, Mendoza.</p>
+      <h3>Maru — Co-fundadora, Comunicación y Experiencias</h3>
+      <p>Docente del área artística que encontró en el turismo otra forma de crear. Es la voz de Ship en redes, genera todo el contenido de Instagram y TikTok, y participa activamente en el armado de paquetes y experiencias. Reside en Buenos Aires.</p>
+      <h3>Una OTA 100% digital</h3>
+      <p>Ship Experience opera como agencia online sin oficina al público. Ger desde San Rafael y Maru desde Buenos Aires — separados geográficamente, unidos en cada viaje que diseñamos.</p>
+      <div class="page-cta"><button onclick="openWA('Hola! Quiero conocer más sobre Ship Experience');closePage('pg-nosotros')">Escribinos por WhatsApp</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- Términos y condiciones -->
+<div class="page-modal" id="pg-tyc">
+  <div class="page-inner">
+    <div class="page-head">
+      <div class="page-head-tag">LEGALES</div>
+      <div class="page-head-title">Términos y condiciones</div>
+      <button class="page-close" onclick="closePage('pg-tyc')">✕</button>
+    </div>
+    <div class="page-body">
+      <div class="highlight">Ship Experience · RNAV Legajo N° 20.395 · Agencia de viajes registrada en Argentina.</div>
+      <h3>1. Reservas y confirmación</h3>
+      <p>Toda reserva se considera confirmada una vez abonada la seña o el total del paquete según corresponda, y recibida la confirmación escrita por parte de Ship Experience a través de WhatsApp o correo electrónico.</p>
+      <h3>2. Precios y pagos</h3>
+      <p>Los precios publicados están expresados por persona en base doble y pueden estar sujetos a variaciones de tarifas aéreas y hoteleras. Ship Experience se reserva el derecho de actualizar precios hasta el momento de la confirmación definitiva. Los pagos se realizan por transferencia bancaria o los medios habilitados. Los miércoles aplican 3 cuotas sin interés según las condiciones vigentes.</p>
+      <h3>3. Cancelaciones y modificaciones</h3>
+      <p>Las cancelaciones realizadas con más de 30 días de anticipación generan un cargo administrativo del 10% del valor total. Entre 30 y 15 días: 30% de penalidad. Entre 15 y 7 días: 50% de penalidad. Con menos de 7 días o no presentación: sin reembolso. Las modificaciones están sujetas a disponibilidad y posibles diferencias de precio.</p>
+      <h3>4. Responsabilidades</h3>
+      <p>Ship Experience actúa como intermediaria entre el viajero y los prestadores de servicios (aerolíneas, hoteles, operadores). No se hace responsable por cancelaciones, demoras o cambios ocasionados por causas ajenas a su control (condiciones climáticas, huelgas, decisiones gubernamentales, etc.).</p>
+      <h3>5. Documentación</h3>
+      <p>Es responsabilidad del viajero contar con la documentación necesaria (DNI, pasaporte, visas) vigente y adecuada para cada destino. Ship Experience brinda asesoramiento pero no es responsable por inconvenientes derivados de documentación insuficiente o vencida.</p>
+      <h3>6. Asistencia al viajero</h3>
+      <p>Todo paquete comercializado por Ship Experience incluye asistencia al viajero salvo indicación expresa en contrario. Se recomienda leer las coberturas del seguro contratado.</p>
+      <h3>7. Privacidad</h3>
+      <p>Los datos personales de los tripulantes son utilizados exclusivamente para la gestión de sus reservas y comunicaciones relacionadas con Ship Experience, en cumplimiento con la Ley N° 25.326 de Protección de Datos Personales.</p>
+      <p style="margin-top:16px;font-size:12px;color:var(--muted)">Estos términos son de carácter general y están sujetos a actualización. Para condiciones específicas de cada paquete, consultá con nuestro equipo.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Cómo reservar -->
+<div class="page-modal" id="pg-reservar">
+  <div class="page-inner">
+    <div class="page-head">
+      <div class="page-head-tag">GUÍA RÁPIDA</div>
+      <div class="page-head-title">¿Cómo reservar?</div>
+      <button class="page-close" onclick="closePage('pg-reservar')">✕</button>
+    </div>
+    <div class="page-body">
+      <p>Reservar con Ship Experience es simple y directo. Todo el proceso se hace por WhatsApp con nuestro equipo — sin formularios complicados, sin burocracia.</p>
+      <div class="step"><div class="step-num">1</div><div class="step-text"><strong>Elegí tu paquete</strong> — explorá los paquetes grupales o contanos a dónde querés ir para una experiencia personalizada.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text"><strong>Contactanos por WhatsApp</strong> — hacé clic en "Consultar" o en el botón flotante. Nuestro equipo te responde con toda la información que necesitás.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-text"><strong>Confirmamos disponibilidad</strong> — te avisamos si hay lugares disponibles y te damos el detalle completo del paquete, precios y opciones de pago.</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-text"><strong>Abonás la seña</strong> — con el pago de la seña queda confirmada tu reserva. Te enviamos el comprobante y los detalles del viaje.</div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-text"><strong>Recibís toda la info</strong> — antes del viaje te enviamos vouchers, itinerario, tips del destino y quedamos disponibles para cualquier consulta.</div></div>
+      <div class="highlight">Los <strong>miércoles</strong> podés abonar en <strong>3 cuotas sin interés</strong>. Consultanos para aprovechar este beneficio.</div>
+      <div class="page-cta"><button onclick="openWA('Hola! Quiero empezar una reserva con Ship Experience. ¿Por dónde empezamos?');closePage('pg-reservar')">Empezar mi reserva</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- Preguntas frecuentes -->
+<div class="page-modal" id="pg-faq">
+  <div class="page-inner">
+    <div class="page-head">
+      <div class="page-head-tag">AYUDA</div>
+      <div class="page-head-title">Preguntas frecuentes</div>
+      <button class="page-close" onclick="closePage('pg-faq')">✕</button>
+    </div>
+    <div class="page-body">
+      <h3>¿Ship Experience es una agencia habilitada?</h3>
+      <p>Sí. Ship Experience está registrada en el RNAV (Registro Nacional de Agencias de Viajes) bajo el Legajo N° 20.395. Podés verificarlo en <a href="https://agenciasdeviajes.ar/?s=20395" target="_blank" rel="noopener" style="color:var(--sp);font-weight:500">agenciasdeviajes.ar</a>.</p>
+      <h3>¿Cómo pago mi viaje?</h3>
+      <p>Los pagos se realizan por transferencia bancaria. Los miércoles podés abonar en 3 cuotas sin interés. Próximamente habilitaremos pago con tarjeta directamente desde la web.</p>
+      <h3>¿Qué pasa si necesito cancelar?</h3>
+      <p>Las condiciones de cancelación varían según la anticipación. Con más de 30 días, el cargo es mínimo. Te recomendamos leer nuestros Términos y Condiciones o consultarnos directamente para tu caso específico.</p>
+      <h3>¿Puedo viajar solo/a?</h3>
+      <p>Claro. Los paquetes grupales se venden por persona — podés sumarte individualmente. Las experiencias personalizadas se diseñan para vos, viajes en el grupo que quieras.</p>
+      <h3>¿Qué incluye la asistencia al viajero?</h3>
+      <p>La asistencia cubre emergencias médicas, odontológicas, repatriación, pérdida de equipaje y asistencia legal básica, según la cobertura incluida en cada paquete. Antes de viajar te enviamos los datos del seguro contratado.</p>
+      <h3>¿Necesito pasaporte para todos los destinos?</h3>
+      <p>Para destinos nacionales argentinos alcanza con el DNI. Para destinos internacionales (Punta Cana, Cancún, Aruba, etc.) necesitás pasaporte vigente. Algunos destinos pueden requerir visa — consultanos para cada caso.</p>
+      <h3>¿Tienen oficina física?</h3>
+      <p>Ship Experience opera 100% online. No tenemos oficina al público — toda la atención es por WhatsApp, Instagram y esta web. Eso nos permite ofrecer atención personalizada desde cualquier lugar del país.</p>
+      <h3>¿Cómo sé que mi reserva está confirmada?</h3>
+      <p>Una reserva queda confirmada cuando recibís un mensaje de confirmación escrito de nuestro equipo y el comprobante del pago de la seña. Siempre guardá esas comunicaciones.</p>
+      <h3>¿Atienden fuera del horario comercial?</h3>
+      <p>Hacemos lo posible por responder a la brevedad en horario extendido. Para urgencias durante un viaje en curso, el canal de contacto es WhatsApp.</p>
+      <div class="page-cta"><button onclick="openWA('Hola! Tengo una consulta sobre un viaje con Ship Experience');closePage('pg-faq')">Tengo otra pregunta</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── MODAL PAQUETE ── -->
+<div class="modal-bg" id="modal" onclick="closeModalBg(event)">
   <div class="modal" id="modal-inner">
-    <div class="modal-img" id="m-img">
+    <div class="modal-img">
       <img id="m-photo" src="" alt="">
       <div class="modal-img-ov"></div>
       <div class="modal-img-ct">
@@ -336,19 +480,13 @@
         <div class="modal-dest" id="m-dest"></div>
         <div class="modal-dates" id="m-dates"></div>
       </div>
-      <button class="modal-close" onclick="document.getElementById('modal').classList.remove('open')">✕</button>
+      <button class="modal-close" onclick="closeModalPack()">✕</button>
     </div>
     <div class="modal-body">
       <div class="modal-hotel" id="m-hotel"></div>
-      <div class="modal-section">
-        <div class="modal-section-title">Qué incluye</div>
-        <div class="modal-inc-grid" id="m-inc"></div>
-      </div>
+      <div class="modal-sec-title">Qué incluye</div>
+      <div class="modal-inc-grid" id="m-inc"></div>
       <div id="m-warn-wrap"></div>
-      <div class="modal-section" id="m-notin-wrap" style="display:none">
-        <div class="modal-section-title">No incluye</div>
-        <div id="m-notin"></div>
-      </div>
       <div class="modal-price-row">
         <div>
           <div class="modal-price-label">Precio por persona</div>
@@ -372,7 +510,6 @@
     <button class="nav-tab" id="nt-p" onclick="switchMode('personalizado')">Experiencias personalizadas</button>
   </div>
   <div class="nav-right">
-    <button class="nav-ghost" onclick="goTo('#nosotros')">Quiénes somos</button>
     <div class="nav-social">
       <a href="https://www.instagram.com/shipexperience/" target="_blank" rel="noopener" title="Instagram">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
@@ -381,13 +518,45 @@
         <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.77a4.85 4.85 0 0 1-1.02-.08z"/></svg>
       </a>
     </div>
+    <!-- MENÚ INSTITUCIONAL -->
+    <button class="nav-menu-btn" id="menu-btn" onclick="toggleMenu()">
+      Agencia
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="nav-dropdown" id="nav-dd">
+      <div class="nav-dd-header">
+        <div class="nav-dd-legajo">Agencia registrada · RNAV <strong>Legajo 20.395</strong></div>
+      </div>
+      <a class="nav-dd-item" onclick="openPage('pg-nosotros');toggleMenu()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        Quiénes somos
+      </a>
+      <a class="nav-dd-item" href="https://agenciasdeviajes.ar/?s=20395" target="_blank" rel="noopener" onclick="toggleMenu()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 12l2 2 4-4"/><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z"/></svg>
+        Verificar en RNAV ↗
+      </a>
+      <div class="nav-dd-divider"></div>
+      <a class="nav-dd-item" onclick="openPage('pg-reservar');toggleMenu()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        ¿Cómo reservar?
+      </a>
+      <a class="nav-dd-item" onclick="openPage('pg-faq');toggleMenu()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17" stroke-width="2.5"/></svg>
+        Preguntas frecuentes
+      </a>
+      <a class="nav-dd-item" onclick="openPage('pg-tyc');toggleMenu()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        Términos y condiciones
+      </a>
+    </div>
     <button class="nav-cta" onclick="openWA('Hola! Quiero diseñar mi viaje con Ship Experience')">Diseñá tu viaje</button>
   </div>
 </nav>
 
 <!-- ── HERO ── -->
 <section class="hero">
-  <div class="hero-badge">INTELIGENCIA ARTESANAL</div>
+  <img class="hero-logo" src="/mnt/user-data/uploads/LOGO_FINAL_SHIP.jpeg" alt="Ship Experience" onerror="this.style.display='none'">
+  <div class="hero-badge">INTELIGENCIA ARTESANAL · RNAV 20.395</div>
   <h1>Diseñamos experiencias<br>para que viajes <span>como vos querés</span></h1>
   <p>Paquetes grupales con salidas fijas y experiencias personalizadas desde cero. Antes, durante y después del viaje.</p>
   <div class="search-box">
@@ -473,259 +642,57 @@
 <!-- ── BANNERS ── -->
 <div class="bw" id="bw">
   <div class="btrack" id="btrack">
-
     <div class="bslide" style="background:#4a3570">
-      <div class="bgeo"><div class="bgeo-c" style="width:320px;height:320px;top:-80px;right:-60px"></div><div class="bgeo-c" style="width:180px;height:180px;top:20px;right:80px"></div><div class="bgeo-l" style="width:100%;height:1px;top:50%"></div></div>
-      <div class="bs-content">
-        <div class="bs-left">
-          <div class="bs-tag"><div class="bs-tagdot"></div>BENEFICIO SEMANAL</div>
-          <div class="bs-accent"></div>
-          <div class="bs-title">Todos los miércoles<br><em>3 cuotas sin interés</em></div>
-          <div class="bs-desc">Pagá tu viaje en cómodas cuotas sin recargo. Aplica a todos los destinos y paquetes disponibles.</div>
-          <div class="bs-actions">
-            <button class="bs-btn" onclick="openWA('Hola! Quiero aprovechar las 3 cuotas sin interés del miércoles. ¿Qué paquetes tienen disponibles?')">Consultá hoy</button>
-            <button class="bs-link" onclick="openWA('Hola! Quiero info sobre financiación de viajes con Ship Experience')">Ver condiciones</button>
-          </div>
-        </div>
-        <div class="bs-right"><div class="bs-panel"><div class="bs-pbadge">CADA MIÉRCOLES</div><div class="bs-pbig">3<span>x</span></div><div class="bs-psub">Sin interés<br>En todos los destinos</div></div></div>
-      </div>
+      <div class="bgeo"><div class="bgeo-c" style="width:320px;height:320px;top:-80px;right:-60px"></div><div class="bgeo-l" style="width:100%;height:1px;top:50%"></div></div>
+      <div class="bs-content"><div class="bs-left"><div class="bs-tag"><div class="bs-tagdot"></div>BENEFICIO SEMANAL</div><div class="bs-accent"></div><div class="bs-title">Todos los miércoles<br><em>3 cuotas sin interés</em></div><div class="bs-desc">Pagá tu viaje en cómodas cuotas sin recargo. Aplica a todos los destinos y paquetes disponibles.</div><div class="bs-actions"><button class="bs-btn" onclick="openWA('Hola! Quiero aprovechar las 3 cuotas sin interés del miércoles. ¿Qué paquetes tienen?')">Consultá hoy</button><button class="bs-link" onclick="openPage('pg-tyc')">Ver condiciones</button></div></div><div class="bs-right"><div class="bs-panel"><div class="bs-pbadge">CADA MIÉRCOLES</div><div class="bs-pbig">3<span>x</span></div><div class="bs-psub">Sin interés<br>En todos los destinos</div></div></div></div>
     </div>
-
     <div class="bslide" style="background:#2e1f5e">
-      <div class="bgeo"><div class="bgeo-c" style="width:400px;height:400px;bottom:-120px;right:-100px"></div><div class="bgeo-c" style="width:200px;height:200px;bottom:0;right:40px"></div><div class="bgeo-l" style="width:100%;height:1px;bottom:80px"></div></div>
-      <div class="bs-content">
-        <div class="bs-left">
-          <div class="bs-tag"><div class="bs-tagdot"></div>PUNTA CANA · OCT 2026</div>
-          <div class="bs-accent"></div>
-          <div class="bs-title">Bahia Principe 5★<br><em>Últimos cupos</em></div>
-          <div class="bs-desc">8 noches all inclusive desde Mendoza con Arajet, valija 23kg incluida. Salida 16 de octubre.</div>
-          <div class="bs-actions">
-            <button class="bs-btn" onclick="openWA('Hola! Quiero reservar el paquete Punta Cana octubre 2026. ¿Quedan cupos?')">Reservar mi lugar</button>
-            <button class="bs-link" onclick="openWA('Hola! Quiero más info sobre Punta Cana octubre 2026 de Ship Experience')">Ver detalles</button>
-          </div>
-        </div>
-        <div class="bs-right"><div class="bs-panel"><div class="bs-pbadge">POR PERSONA</div><div class="bs-pbig" style="font-size:28px">U$S<br><span style="font-size:38px">1.860</span></div><div class="bs-psub">Todo incluido</div></div></div>
-      </div>
+      <div class="bgeo"><div class="bgeo-c" style="width:400px;height:400px;bottom:-120px;right:-100px"></div><div class="bgeo-l" style="width:100%;height:1px;bottom:80px"></div></div>
+      <div class="bs-content"><div class="bs-left"><div class="bs-tag"><div class="bs-tagdot"></div>PUNTA CANA · OCT 2026</div><div class="bs-accent"></div><div class="bs-title">Bahia Principe 5★<br><em>Últimos cupos</em></div><div class="bs-desc">8 noches all inclusive desde Mendoza con Arajet, valija 23kg incluida. Salida 16 de octubre.</div><div class="bs-actions"><button class="bs-btn" onclick="openWA('Hola! Quiero reservar el paquete Punta Cana octubre 2026. ¿Quedan cupos?')">Reservar mi lugar</button><button class="bs-link" onclick="openWA('Hola! Quiero más info sobre Punta Cana octubre 2026')">Ver detalles</button></div></div><div class="bs-right"><div class="bs-panel"><div class="bs-pbadge">POR PERSONA</div><div class="bs-pbig" style="font-size:22px">U$S<br><span style="font-size:36px">1.860</span></div><div class="bs-psub">Todo incluido</div></div></div></div>
     </div>
-
     <div class="bslide" style="background:#3d2a6e">
       <div class="bgeo"><div class="bgeo-c" style="width:500px;height:500px;top:-200px;left:-100px"></div><div class="bgeo-l" style="width:1px;height:100%;left:320px"></div></div>
-      <div class="bs-content">
-        <div class="bs-left">
-          <div class="bs-tag"><div class="bs-tagdot"></div>PAQUETES GRUPALES</div>
-          <div class="bs-accent"></div>
-          <div class="bs-title">Viajá acompañado,<br><em>sin preocuparte por nada</em></div>
-          <div class="bs-desc">Fecha fija, todo coordinado, cupos limitados. Cataratas del Iguazú y Punta Cana disponibles.</div>
-          <div class="bs-actions">
-            <button class="bs-btn" onclick="switchMode('grupal');document.querySelector('.packs-sec').scrollIntoView({behavior:'smooth'})">Ver salidas</button>
-            <button class="bs-link" onclick="openWA('Hola! ¿Cuándo son las próximas salidas grupales de Ship?')">Próximas fechas</button>
-          </div>
-        </div>
-        <div class="bs-right">
-          <div class="bs-panel" style="padding:18px 20px">
-            <div style="font-size:10px;color:rgba(255,255,255,.35);letter-spacing:1px;margin-bottom:12px;font-weight:600">SALIDAS ACTIVAS</div>
-            <div style="display:flex;flex-direction:column;gap:9px;text-align:left">
-              <div style="display:flex;align-items:center;gap:8px"><div style="width:5px;height:5px;border-radius:50%;background:var(--so);flex-shrink:0"></div><div style="font-size:12px;color:rgba(255,255,255,.65)">Cataratas · Mayo 2026</div></div>
-              <div style="display:flex;align-items:center;gap:8px"><div style="width:5px;height:5px;border-radius:50%;background:var(--so);flex-shrink:0"></div><div style="font-size:12px;color:rgba(255,255,255,.65)">Cataratas · Junio 2026</div></div>
-              <div style="display:flex;align-items:center;gap:8px"><div style="width:5px;height:5px;border-radius:50%;background:var(--so);flex-shrink:0"></div><div style="font-size:12px;color:rgba(255,255,255,.65)">Punta Cana · Oct 2026</div></div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <div class="bs-content"><div class="bs-left"><div class="bs-tag"><div class="bs-tagdot"></div>PAQUETES GRUPALES</div><div class="bs-accent"></div><div class="bs-title">Viajá acompañado,<br><em>sin preocuparte por nada</em></div><div class="bs-desc">Fecha fija, todo coordinado, cupos limitados. Cataratas del Iguazú y Punta Cana disponibles.</div><div class="bs-actions"><button class="bs-btn" onclick="switchMode('grupal');document.querySelector('.packs-sec').scrollIntoView({behavior:'smooth'})">Ver salidas</button><button class="bs-link" onclick="openWA('Hola! ¿Cuáles son las próximas salidas grupales de Ship?')">Próximas fechas</button></div></div><div class="bs-right"><div class="bs-panel" style="padding:16px 18px"><div style="font-size:10px;color:rgba(255,255,255,.35);letter-spacing:1px;margin-bottom:10px;font-weight:600">SALIDAS ACTIVAS</div><div style="display:flex;flex-direction:column;gap:8px;text-align:left"><div style="display:flex;align-items:center;gap:8px"><div style="width:5px;height:5px;border-radius:50%;background:var(--so);flex-shrink:0"></div><div style="font-size:12px;color:rgba(255,255,255,.65)">Cataratas · Mayo 2026</div></div><div style="display:flex;align-items:center;gap:8px"><div style="width:5px;height:5px;border-radius:50%;background:var(--so);flex-shrink:0"></div><div style="font-size:12px;color:rgba(255,255,255,.65)">Cataratas · Junio 2026</div></div><div style="display:flex;align-items:center;gap:8px"><div style="width:5px;height:5px;border-radius:50%;background:var(--so);flex-shrink:0"></div><div style="font-size:12px;color:rgba(255,255,255,.65)">Punta Cana · Oct 2026</div></div></div></div></div></div>
     </div>
-
     <div class="bslide" style="background:#6B4FA0">
-      <div class="bgeo"><div class="bgeo-c" style="width:600px;height:600px;top:-200px;right:-200px"></div><div class="bgeo-c" style="width:300px;height:300px;top:0;right:0"></div><div class="bgeo-l" style="width:100%;height:1px;top:33%"></div><div class="bgeo-l" style="width:100%;height:1px;top:66%"></div></div>
-      <div class="bs-content">
-        <div class="bs-left">
-          <div class="bs-tag"><div class="bs-tagdot"></div>SHIP ES IA</div>
-          <div class="bs-accent"></div>
-          <div class="bs-title">Tu viaje tiene<br><em>nombre y apellido</em></div>
-          <div class="bs-desc">No apretamos un botón que escupe un paquete. Te preguntamos, te escuchamos, y diseñamos. Eso es Inteligencia Artesanal.</div>
-          <div class="bs-actions">
-            <button class="bs-btn" onclick="openWA('Hola! Quiero diseñar mi viaje personalizado con Ship Experience. ¿Por dónde empezamos?')">Diseñá tu viaje</button>
-          </div>
-        </div>
-        <div class="bs-right">
-          <div class="bs-panel" style="padding:18px 20px">
-            <div style="font-size:10px;color:rgba(255,255,255,.35);letter-spacing:1.5px;margin-bottom:14px;font-weight:600">NUESTRA PROMESA</div>
-            <div style="display:flex;flex-direction:column;gap:10px;text-align:left">
-              <div style="font-size:12px;color:rgba(255,255,255,.6);display:flex;gap:10px"><div style="color:var(--so);font-weight:700;flex-shrink:0">01</div><div>Antes — diseñamos juntos</div></div>
-              <div style="font-size:12px;color:rgba(255,255,255,.6);display:flex;gap:10px"><div style="color:var(--so);font-weight:700;flex-shrink:0">02</div><div>Durante — navegamos juntos</div></div>
-              <div style="font-size:12px;color:rgba(255,255,255,.6);display:flex;gap:10px"><div style="color:var(--so);font-weight:700;flex-shrink:0">03</div><div>Después — seguimos en contacto</div></div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <div class="bgeo"><div class="bgeo-c" style="width:600px;height:600px;top:-200px;right:-200px"></div><div class="bgeo-l" style="width:100%;height:1px;top:33%"></div><div class="bgeo-l" style="width:100%;height:1px;top:66%"></div></div>
+      <div class="bs-content"><div class="bs-left"><div class="bs-tag"><div class="bs-tagdot"></div>SHIP ES IA</div><div class="bs-accent"></div><div class="bs-title">Tu viaje tiene<br><em>nombre y apellido</em></div><div class="bs-desc">No apretamos un botón que escupe un paquete. Te preguntamos, te escuchamos, y diseñamos. Eso es Inteligencia Artesanal.</div><div class="bs-actions"><button class="bs-btn" onclick="openWA('Hola! Quiero diseñar mi viaje personalizado con Ship Experience. ¿Por dónde empezamos?')">Diseñá tu viaje</button></div></div><div class="bs-right"><div class="bs-panel" style="padding:16px 18px"><div style="font-size:10px;color:rgba(255,255,255,.35);letter-spacing:1.5px;margin-bottom:12px;font-weight:600">NUESTRA PROMESA</div><div style="display:flex;flex-direction:column;gap:9px;text-align:left"><div style="font-size:12px;color:rgba(255,255,255,.6);display:flex;gap:8px"><div style="color:var(--so);font-weight:700;flex-shrink:0">01</div><div>Antes — diseñamos juntos</div></div><div style="font-size:12px;color:rgba(255,255,255,.6);display:flex;gap:8px"><div style="color:var(--so);font-weight:700;flex-shrink:0">02</div><div>Durante — navegamos juntos</div></div><div style="font-size:12px;color:rgba(255,255,255,.6);display:flex;gap:8px"><div style="color:var(--so);font-weight:700;flex-shrink:0">03</div><div>Después — seguimos en contacto</div></div></div></div></div></div>
     </div>
-
   </div>
-  <div class="barr barrl" onclick="bmove(-1)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg></div>
-  <div class="barr barrr" onclick="bmove(1)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></div>
+  <div class="barr barrl" onclick="bmove(-1)"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg></div>
+  <div class="barr barrr" onclick="bmove(1)"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></div>
   <div class="bprog"><div class="bpfill" id="bpfill"></div></div>
-  <div class="bnav" id="bnav">
-    <div class="bdot on" onclick="bgo(0)"></div>
-    <div class="bdot" onclick="bgo(1)"></div>
-    <div class="bdot" onclick="bgo(2)"></div>
-    <div class="bdot" onclick="bgo(3)"></div>
-  </div>
+  <div class="bnav"><div class="bdot on" onclick="bgo(0)"></div><div class="bdot" onclick="bgo(1)"></div><div class="bdot" onclick="bgo(2)"></div><div class="bdot" onclick="bgo(3)"></div></div>
 </div>
 
 <!-- ── PAQUETES ── -->
 <section class="packs-sec">
   <div class="packs-in">
     <div class="sec-hdr"><h2 id="sec-title">Paquetes grupales disponibles</h2><span id="sec-count">3 salidas</span></div>
-
     <div id="pg-g" class="pgrid">
-      <div class="pc" data-dest="iguazu" data-mes="junio"
-        data-title="Cataratas del Iguazú"
-        data-dates="19 al 22 de junio 2026 · 3 noches"
-        data-hotel="Complejo Americano 3 estrellas"
-        data-badge="GRUPAL"
-        data-price="$800.000"
-        data-cuota="O 3 cuotas sin interés los miércoles"
-        data-inc='["Vuelos Ezeiza / Iguazú / Ezeiza","Traslados in/out aeropuerto-hotel","Excursión Cataratas Argentinas","Excursión Cataratas Brasil","Media pensión","Asistencia al viajero"]'
-        data-warn="No incluye entradas a los parques"
-        data-photo="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=85"
-        data-wa-res="Hola! Quiero reservar el paquete grupal Cataratas 19/06 al 22/06. ¿Hay disponibilidad?"
-        data-wa-info="Hola! Quiero más información sobre el paquete grupal Cataratas 19/06 al 22/06"
-        onclick="openModal(this)">
-        <div class="pch">
-          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=85" alt="Cataratas del Iguazú" loading="lazy">
-          <div class="pch-ov"></div>
-          <div class="pch-ct"><div class="pdest">Cataratas del Iguazú</div><div class="pdates">19 al 22 de junio 2026 · 3 noches</div></div>
-          <div class="pbadge g">GRUPAL</div>
-        </div>
-        <div class="pbody">
-          <div class="photel">Complejo Americano 3 estrellas</div>
-          <ul class="pinc">
-            <li>Vuelos Ezeiza / Iguazú / Ezeiza</li>
-            <li>Traslados in/out · Excursiones ambos lados</li>
-            <li>Media pensión · Asistencia al viajero</li>
-          </ul>
-          <div class="pwarn">⚠ No incluye entradas a los parques</div>
-          <div class="pfoot">
-            <div><div class="pplabel">por persona</div><div class="pprice">$800.000</div></div>
-            <button class="pbtn">Ver detalle</button>
-          </div>
-        </div>
+      <div class="pc" data-dest="iguazu" data-mes="junio" data-title="Cataratas del Iguazú" data-dates="19 al 22 de junio 2026 · 3 noches" data-hotel="Complejo Americano 3 estrellas" data-badge="GRUPAL" data-price="$800.000" data-cuota="O 3 cuotas sin interés los miércoles" data-inc='["Vuelos Ezeiza / Iguazú / Ezeiza","Traslados in/out aeropuerto-hotel","Excursión Cataratas Argentinas","Excursión Cataratas Brasil","Media pensión","Asistencia al viajero"]' data-warn="No incluye entradas a los parques" data-photo="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=85" data-wa-res="Hola! Quiero reservar el paquete grupal Cataratas 19/06. ¿Hay disponibilidad?" data-wa-info="Hola! Quiero más información sobre el paquete Cataratas 19/06 al 22/06" onclick="openModal(this)">
+        <div class="pch"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=85" alt="Cataratas del Iguazú" loading="lazy"><div class="pch-ov"></div><div class="pch-ct"><div class="pdest">Cataratas del Iguazú</div><div class="pdates">19 al 22 de junio 2026 · 3 noches</div></div><div class="pbadge g">GRUPAL</div></div>
+        <div class="pbody"><div class="photel">Complejo Americano 3 estrellas</div><ul class="pinc"><li>Vuelos Ezeiza / Iguazú / Ezeiza</li><li>Traslados in/out · Excursiones ambos lados</li><li>Media pensión · Asistencia al viajero</li></ul><div class="pwarn">⚠ No incluye entradas a los parques</div><div class="pfoot"><div><div class="pplabel">por persona</div><div class="pprice">$800.000</div></div><button class="pbtn">Ver detalle</button></div></div>
       </div>
-
-      <div class="pc" data-dest="iguazu" data-mes="mayo"
-        data-title="Cataratas del Iguazú"
-        data-dates="29 de mayo al 01 de junio 2026 · 3 noches"
-        data-hotel="Grand Crucero Iguazú 4 estrellas"
-        data-badge="GRUPAL"
-        data-price="$650.000"
-        data-cuota="O 3 cuotas sin interés los miércoles"
-        data-inc='["Vuelos Aeroparque / Iguazú / Aeroparque","Traslados in/out aeropuerto-hotel","Excursión Cataratas Argentinas","Excursión Cataratas Brasil","Media pensión","Asistencia al viajero"]'
-        data-warn="No incluye entradas a los parques"
-        data-photo="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=85"
-        data-wa-res="Hola! Quiero reservar el paquete grupal Cataratas 29/05 al 01/06. ¿Hay disponibilidad?"
-        data-wa-info="Hola! Quiero más información sobre el paquete grupal Cataratas 29/05 al 01/06"
-        onclick="openModal(this)">
-        <div class="pch">
-          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=85" alt="Cataratas del Iguazú" loading="lazy">
-          <div class="pch-ov"></div>
-          <div class="pch-ct"><div class="pdest">Cataratas del Iguazú</div><div class="pdates">29 de mayo al 01 de junio 2026 · 3 noches</div></div>
-          <div class="pbadge g">GRUPAL</div>
-        </div>
-        <div class="pbody">
-          <div class="photel">Grand Crucero Iguazú 4 estrellas</div>
-          <ul class="pinc">
-            <li>Vuelos Aeroparque / Iguazú / Aeroparque</li>
-            <li>Traslados in/out · Excursiones ambos lados</li>
-            <li>Media pensión · Asistencia al viajero</li>
-          </ul>
-          <div class="pwarn">⚠ No incluye entradas a los parques</div>
-          <div class="pfoot">
-            <div><div class="pplabel">por persona</div><div class="pprice">$650.000</div></div>
-            <button class="pbtn">Ver detalle</button>
-          </div>
-        </div>
+      <div class="pc" data-dest="iguazu" data-mes="mayo" data-title="Cataratas del Iguazú" data-dates="29 de mayo al 01 de junio 2026 · 3 noches" data-hotel="Grand Crucero Iguazú 4 estrellas" data-badge="GRUPAL" data-price="$650.000" data-cuota="O 3 cuotas sin interés los miércoles" data-inc='["Vuelos Aeroparque / Iguazú / Aeroparque","Traslados in/out aeropuerto-hotel","Excursión Cataratas Argentinas","Excursión Cataratas Brasil","Media pensión","Asistencia al viajero"]' data-warn="No incluye entradas a los parques" data-photo="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=85" data-wa-res="Hola! Quiero reservar el paquete grupal Cataratas 29/05. ¿Hay disponibilidad?" data-wa-info="Hola! Quiero más información sobre el paquete Cataratas 29/05 al 01/06" onclick="openModal(this)">
+        <div class="pch"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=85" alt="Cataratas del Iguazú" loading="lazy"><div class="pch-ov"></div><div class="pch-ct"><div class="pdest">Cataratas del Iguazú</div><div class="pdates">29 de mayo al 01 de junio 2026 · 3 noches</div></div><div class="pbadge g">GRUPAL</div></div>
+        <div class="pbody"><div class="photel">Grand Crucero Iguazú 4 estrellas</div><ul class="pinc"><li>Vuelos Aeroparque / Iguazú / Aeroparque</li><li>Traslados in/out · Excursiones ambos lados</li><li>Media pensión · Asistencia al viajero</li></ul><div class="pwarn">⚠ No incluye entradas a los parques</div><div class="pfoot"><div><div class="pplabel">por persona</div><div class="pprice">$650.000</div></div><button class="pbtn">Ver detalle</button></div></div>
       </div>
-
-      <div class="pc" data-dest="puntacana" data-mes="octubre"
-        data-title="Punta Cana"
-        data-dates="16 al 24 de octubre 2026 · 8 noches"
-        data-hotel="Bahia Principe Grand Punta Cana 5 estrellas"
-        data-badge="GRUPAL"
-        data-price="U$S 1.860"
-        data-cuota="O 3 cuotas sin interés los miércoles"
-        data-inc='["8 noches all inclusive","Vuelos desde Mendoza con Arajet · valija 23kg","Traslado de llegada al aeropuerto","Traslado de salida al aeropuerto","Asistencia al viajero"]'
-        data-photo="https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?w=800&q=85"
-        data-wa-res="Hola! Quiero reservar el paquete grupal Punta Cana octubre 2026. ¿Hay disponibilidad?"
-        data-wa-info="Hola! Quiero más información sobre el paquete grupal Punta Cana octubre 2026"
-        onclick="openModal(this)">
-        <div class="pch">
-          <img src="https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?w=700&q=85" alt="Punta Cana" loading="lazy">
-          <div class="pch-ov"></div>
-          <div class="pch-ct"><div class="pdest">Punta Cana</div><div class="pdates">16 al 24 de octubre 2026 · 8 noches</div></div>
-          <div class="pbadge g">GRUPAL</div>
-        </div>
-        <div class="pbody">
-          <div class="photel">Bahia Principe Grand Punta Cana 5 estrellas</div>
-          <ul class="pinc">
-            <li>8 noches all inclusive</li>
-            <li>Vuelos desde Mendoza con Arajet · valija 23kg</li>
-            <li>Traslados · Asistencia al viajero</li>
-          </ul>
-          <div class="pfoot">
-            <div><div class="pplabel">por persona</div><div class="pprice">U$S 1.860</div></div>
-            <button class="pbtn">Ver detalle</button>
-          </div>
-        </div>
+      <div class="pc" data-dest="puntacana" data-mes="octubre" data-title="Punta Cana" data-dates="16 al 24 de octubre 2026 · 8 noches" data-hotel="Bahia Principe Grand Punta Cana 5 estrellas" data-badge="GRUPAL" data-price="U$S 1.860" data-cuota="O 3 cuotas sin interés los miércoles" data-inc='["8 noches all inclusive","Vuelos desde Mendoza con Arajet · valija 23kg","Traslado de llegada al aeropuerto","Traslado de salida al aeropuerto","Asistencia al viajero"]' data-photo="https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?w=800&q=85" data-wa-res="Hola! Quiero reservar el paquete grupal Punta Cana octubre 2026. ¿Hay disponibilidad?" data-wa-info="Hola! Quiero más información sobre el paquete Punta Cana octubre 2026" onclick="openModal(this)">
+        <div class="pch"><img src="https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?w=700&q=85" alt="Punta Cana" loading="lazy"><div class="pch-ov"></div><div class="pch-ct"><div class="pdest">Punta Cana</div><div class="pdates">16 al 24 de octubre 2026 · 8 noches</div></div><div class="pbadge g">GRUPAL</div></div>
+        <div class="pbody"><div class="photel">Bahia Principe Grand Punta Cana 5 estrellas</div><ul class="pinc"><li>8 noches all inclusive</li><li>Vuelos desde Mendoza con Arajet · valija 23kg</li><li>Traslados · Asistencia al viajero</li></ul><div class="pfoot"><div><div class="pplabel">por persona</div><div class="pprice">U$S 1.860</div></div><button class="pbtn">Ver detalle</button></div></div>
       </div>
     </div>
-
     <div id="pg-p" class="pgrid hidden">
-      <div class="pc" data-dest="puntacana" data-mes="noviembre"
-        data-title="Punta Cana"
-        data-dates="14 al 22 de noviembre 2026 · 8 noches"
-        data-hotel="Bahia Principe Grand Turquesa 5 estrellas"
-        data-badge="PERSONALIZADO"
-        data-price="U$S 1.890"
-        data-cuota="O 3 cuotas sin interés los miércoles"
-        data-inc='["8 noches all inclusive","Vuelos desde Mendoza con Latam · escala Lima","Carry on 12kg incluido","Traslado de llegada al aeropuerto","Traslado de salida al aeropuerto","Asistencia al viajero Universal Assistance"]'
-        data-photo="https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=800&q=85"
-        data-wa-res="Hola! Quiero reservar la experiencia personalizada Punta Cana noviembre 2026. ¿Hay disponibilidad?"
-        data-wa-info="Hola! Quiero más información sobre la experiencia personalizada Punta Cana noviembre 2026"
-        onclick="openModal(this)">
-        <div class="pch">
-          <img src="https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=700&q=85" alt="Punta Cana" loading="lazy">
-          <div class="pch-ov"></div>
-          <div class="pch-ct"><div class="pdest">Punta Cana</div><div class="pdates">14 al 22 de noviembre 2026 · 8 noches</div></div>
-          <div class="pbadge p">PERSONALIZADO</div>
-        </div>
-        <div class="pbody">
-          <div class="photel">Bahia Principe Grand Turquesa 5 estrellas</div>
-          <ul class="pinc">
-            <li>8 noches all inclusive</li>
-            <li>Vuelos desde Mendoza con Latam · escala Lima · carry on 12kg</li>
-            <li>Traslados · Asistencia al viajero Universal Assistance</li>
-          </ul>
-          <div class="pfoot">
-            <div><div class="pplabel">por persona</div><div class="pprice">U$S 1.890</div></div>
-            <button class="pbtn">Ver detalle</button>
-          </div>
-        </div>
+      <div class="pc" data-dest="puntacana" data-mes="noviembre" data-title="Punta Cana" data-dates="14 al 22 de noviembre 2026 · 8 noches" data-hotel="Bahia Principe Grand Turquesa 5 estrellas" data-badge="PERSONALIZADO" data-price="U$S 1.890" data-cuota="O 3 cuotas sin interés los miércoles" data-inc='["8 noches all inclusive","Vuelos desde Mendoza con Latam · escala Lima","Carry on 12kg incluido","Traslado de llegada al aeropuerto","Traslado de salida al aeropuerto","Asistencia al viajero Universal Assistance"]' data-photo="https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=800&q=85" data-wa-res="Hola! Quiero reservar la experiencia personalizada Punta Cana noviembre 2026. ¿Hay disponibilidad?" data-wa-info="Hola! Quiero más información sobre la experiencia Punta Cana noviembre 2026" onclick="openModal(this)">
+        <div class="pch"><img src="https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=700&q=85" alt="Punta Cana" loading="lazy"><div class="pch-ov"></div><div class="pch-ct"><div class="pdest">Punta Cana</div><div class="pdates">14 al 22 de noviembre 2026 · 8 noches</div></div><div class="pbadge p">PERSONALIZADO</div></div>
+        <div class="pbody"><div class="photel">Bahia Principe Grand Turquesa 5 estrellas</div><ul class="pinc"><li>8 noches all inclusive</li><li>Vuelos desde Mendoza con Latam · escala Lima · carry on 12kg</li><li>Traslados · Asistencia Universal Assistance</li></ul><div class="pfoot"><div><div class="pplabel">por persona</div><div class="pprice">U$S 1.890</div></div><button class="pbtn">Ver detalle</button></div></div>
       </div>
-
       <div class="pc pc-invite" onclick="openWA('Hola! Quiero diseñar un viaje personalizado con Ship Experience')">
-        <div>
-          <div class="inv-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6B4FA0" stroke-width="1.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
-          <div style="font-size:16px;font-weight:600;color:var(--sp);margin-bottom:10px">¿Tenés un destino en mente?</div>
-          <div style="font-size:13px;color:var(--muted);line-height:1.7">Contanos a dónde querés ir y diseñamos tu experiencia desde cero.</div>
-          <div style="margin-top:18px;font-size:13px;color:var(--so);font-weight:600">Escribinos por WhatsApp →</div>
-        </div>
+        <div><div class="inv-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6B4FA0" stroke-width="1.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><div style="font-size:16px;font-weight:600;color:var(--sp);margin-bottom:10px">¿Tenés un destino en mente?</div><div style="font-size:13px;color:var(--muted);line-height:1.7">Contanos a dónde querés ir y diseñamos tu experiencia desde cero.</div><div style="margin-top:18px;font-size:13px;color:var(--so);font-weight:600">Escribinos por WhatsApp →</div></div>
       </div>
     </div>
-
-    <div class="no-res" id="no-res">
-      <h3>No encontramos paquetes para ese destino todavía</h3>
-      <p>Pero podemos diseñar tu viaje a medida.<br>Contanos a dónde querés ir y nos encargamos de todo.</p>
-      <button class="btn-wa" id="no-res-btn">Consultar por WhatsApp</button>
-    </div>
+    <div class="no-res" id="no-res"><h3>No encontramos paquetes para ese destino todavía</h3><p>Pero podemos diseñar tu viaje a medida.<br>Contanos a dónde querés ir y nos encargamos de todo.</p><button class="btn-wa" id="no-res-btn">Consultar por WhatsApp</button></div>
   </div>
 </section>
 
@@ -734,19 +701,19 @@
   <div class="nos-in">
     <div class="nos-ey">QUIÉNES SOMOS</div>
     <div class="nos-title">Dos apasionados del turismo<br><span>que se conocieron viajando</span></div>
-    <div class="nos-sub">Somos Ger y Maru — nos conocimos trabajando en turismo y viajando. Nos unió un sueño compartido: ayudar a las personas a crear viajes únicos. Así nació SHIP, para que cada experiencia sea diseñada de principio a fin, con la atención y el detalle que merecés. Somos una OTA 100% digital: Ger desde San Rafael y Maru desde Buenos Aires, pero unidos en cada viaje. Y cuando terminás, ya estamos pensando en el próximo. <em>SHIP es IA.</em></div>
+    <div class="nos-sub">Somos Ger y Maru — nos conocimos trabajando en turismo y viajando. Nos unió un sueño compartido: ayudar a las personas a crear viajes únicos. Así nació Ship Experience — para que cada experiencia sea diseñada de principio a fin, con la atención y el detalle que merecés. Una OTA 100% digital: Ger desde San Rafael y Maru desde Buenos Aires, pero unidos en cada viaje. <em>SHIP es IA.</em></div>
     <div class="nos-grid">
       <div class="nos-card">
         <div class="nos-av">G</div>
         <div class="nos-name">Ger</div>
         <div class="nos-role">Fundador · Director</div>
-        <div class="nos-bio">Docente de Educación Física reconvertido al turismo — una pasión que cambió su vida. Se vincula directamente con los tripulantes y los operadores, maneja las finanzas y arma cada paquete con el nivel de detalle que marca la diferencia. Su diferencial no está en el conocimiento enciclopédico, sino en la atención y la relación directa con cada tripulante.</div>
+        <div class="nos-bio">Docente de Educación Física reconvertido al turismo — una pasión que cambió su vida. Se vincula directamente con los tripulantes y los operadores, maneja las finanzas y arma cada paquete. Su diferencial está en la atención, el detalle y la relación directa con cada tripulante.</div>
       </div>
       <div class="nos-card">
         <div class="nos-av">M</div>
         <div class="nos-name">Maru</div>
         <div class="nos-role">Co-fundadora · Comunicación y Experiencias</div>
-        <div class="nos-bio">Docente del área artística que encontró en el turismo otra forma de crear. Es la voz de Ship en redes — genera todo el contenido de Instagram y TikTok —, y participa activamente en el armado de paquetes y experiencias junto a Ger. Su mirada artística y su calidez se sienten en cada detalle de la comunicación de la marca.</div>
+        <div class="nos-bio">Docente del área artística que encontró en el turismo otra forma de crear. Es la voz de Ship en redes — genera todo el contenido de Instagram y TikTok — y participa activamente en el armado de paquetes y experiencias junto a Ger.</div>
       </div>
     </div>
     <div class="nos-vals">
@@ -775,40 +742,22 @@
 <section class="ia-sec">
   <div class="ia-in">
     <div class="ia-top">
-      <div class="ia-left">
-        <div class="ia-ey">SHIP ES IA</div>
-        <h2><span class="tach">Inteligencia artificial</span>.<br><em>Inteligencia Artesanal.</em></h2>
-        <p>Escuchamos tus historias, entendemos tus gustos y hasta tus pequeñas manías para que cada momento encaje con vos. Porque lo nuestro no es apretar un botón — es diseñar tu viaje desde la empatía.</p>
-      </div>
-      <div class="ia-right">
-        <div class="ia-qm">"</div>
-        <div class="ia-qt">Nos contaste a dónde querías ir. Te preguntamos cosas. Te escuchamos. Y ahí empezó el viaje, incluso antes de que armaras la valija.</div>
-        <div class="ia-au"><div class="ia-dot">SE</div><div><div class="ia-an">Ship Experience</div><div class="ia-ar">Inteligencia Artesanal · Argentina</div></div></div>
-      </div>
+      <div class="ia-left"><div class="ia-ey">SHIP ES IA</div><h2><span class="tach">Inteligencia artificial</span>.<br><em>Inteligencia Artesanal.</em></h2><p>Escuchamos tus historias, entendemos tus gustos y hasta tus pequeñas manías para que cada momento encaje con vos. Porque lo nuestro no es apretar un botón — es diseñar tu viaje desde la empatía.</p></div>
+      <div class="ia-right"><div class="ia-qm">"</div><div class="ia-qt">Nos contaste a dónde querías ir. Te preguntamos cosas. Te escuchamos. Y ahí empezó el viaje, incluso antes de que armaras la valija.</div><div class="ia-au"><div class="ia-dot">SE</div><div><div class="ia-an">Ship Experience</div><div class="ia-ar">Inteligencia Artesanal · Argentina</div></div></div></div>
     </div>
     <div class="ia-jrn">
       <div class="ia-st"><div class="ia-sn">01 — ANTES</div><div class="ia-sl"></div><div class="ia-sh">Diseñamos juntos</div><div class="ia-sd">Todo lo necesario para arrancar seguro. Ruta, alojamiento, detalle a detalle. Sin moldes ni fórmulas.</div></div>
       <div class="ia-st"><div class="ia-sn">02 — DURANTE</div><div class="ia-sl"></div><div class="ia-sh">Navegamos juntos</div><div class="ia-sd">Seguimos ahí, listos para resolver y mejorar cada momento del viaje en tiempo real.</div></div>
       <div class="ia-st"><div class="ia-sn">03 — DESPUÉS</div><div class="ia-sl"></div><div class="ia-sh">Seguimos en contacto</div><div class="ia-sd">El vínculo no termina con la llegada. Cada tripulante pasa a ser parte de nuestra nave para siempre.</div></div>
     </div>
-    <div class="ia-cta">
-      <div class="ia-ct">¿Querés que armemos juntos <span>un viaje a tu medida?</span></div>
-      <button class="ia-cb" onclick="openWA('Hola! Quiero diseñar mi viaje con Ship Experience. ¿Por dónde empezamos?')">Hablemos por WhatsApp</button>
-    </div>
+    <div class="ia-cta"><div class="ia-ct">¿Querés que armemos juntos <span>un viaje a tu medida?</span></div><button class="ia-cb" onclick="openWA('Hola! Quiero diseñar mi viaje con Ship Experience. ¿Por dónde empezamos?')">Hablemos por WhatsApp</button></div>
   </div>
 </section>
 
 <!-- ── DESTINOS COLAPSABLE ── -->
 <div class="dest-wrap" id="destinos">
-  <div class="dest-tbar" onclick="toggleDest()" id="dest-bar">
-    <div class="dest-tleft">
-      <div class="dest-ttitle">Explorá todos los destinos</div>
-      <div class="dest-tsub">Argentina e internacional — hacé clic para descubrir cada destino</div>
-    </div>
-    <div class="dest-tico" id="dest-ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
-  </div>
+  <div class="dest-tbar" onclick="toggleDest()"><div class="dest-tleft"><div class="dest-ttitle">Explorá todos los destinos</div><div class="dest-tsub">Argentina e internacional — hacé clic para conocer cada destino</div></div><div class="dest-tico" id="dest-ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div></div>
   <div class="dest-cont" id="dest-cont">
-    <div class="dest-hint">Hacé clic en un destino para conocerlo</div>
     <div class="dgrid">
       <div class="dchip" onclick="goTo('#d-norte')"><div class="dchip-ico">🏔</div><div class="dchip-name">Norte Argentino</div></div>
       <div class="dchip" onclick="goTo('#d-iguazu')"><div class="dchip-ico">💧</div><div class="dchip-name">Cataratas</div></div>
@@ -833,60 +782,40 @@
 
 <!-- DESTINOS DETALLE -->
 <div id="d-norte" class="dsec"><div class="dsec-in"><div class="dimg"><img src="https://images.unsplash.com/photo-1589909202802-8f4aab4f02c1?w=800&q=80" alt="Norte Argentino" loading="lazy"><div class="dimg-ov"></div></div><div class="dinfo"><div class="dtag">ARGENTINA</div><h3>Norte Argentino</h3><p>Salta, Jujuy y Tucumán forman uno de los paisajes más impresionantes de Sudamérica. La Quebrada de Humahuaca — Patrimonio de la Humanidad —, los cerros de colores de Purmamarca y los valles calchaquíes con viñas de altura definen un destino único de cultura ancestral y gastronomía norteña.</p><div class="dfacts"><div class="df"><div class="dfl">Mejor época</div><div class="dfv">Abril a Octubre</div></div><div class="df"><div class="dfl">UNESCO</div><div class="dfv">Quebrada de Humahuaca</div></div></div><div class="dnp">Próximamente incorporamos paquetes a este destino.</div><div class="dbtns"><button class="dbs" onclick="openWA('Hola! Quiero diseñar un viaje al Norte Argentino con Ship Experience')">Diseñar mi viaje →</button></div></div></div></div>
-
-<div id="d-iguazu" class="dsec"><div class="dsec-in rev"><div class="dimg"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80" alt="Cataratas del Iguazú" loading="lazy"><div class="dimg-ov"></div></div><div class="dinfo"><div class="dtag">ARGENTINA · BRASIL</div><h3>Cataratas del Iguazú</h3><p>Una de las siete maravillas naturales del mundo. Las 275 caídas de agua del río Iguazú, con la Garganta del Diablo como protagonista. Declaradas Patrimonio de la Humanidad en 1984, se visitan desde el lado argentino — con pasarelas al corazón de las cataratas — y desde el brasileño para la vista panorámica.</p><div class="dfacts"><div class="df"><div class="dfl">Mejor época</div><div class="dfv">Todo el año</div></div><div class="df"><div class="dfl">UNESCO</div><div class="dfv">Patrimonio 1984</div></div></div><div class="dbtns"><button class="dbp" onclick="switchMode('grupal');doSearchDest('iguazu')">Ver paquetes</button><button class="dbs" onclick="openWA('Hola! Quiero consultar sobre Cataratas del Iguazú con Ship Experience')">Consultar →</button></div></div></div></div>
-
-<div id="d-bariloche" class="dsec"><div class="dsec-in"><div class="dimg"><img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800&q=80" alt="Bariloche" loading="lazy"><div class="dimg-ov"></div></div><div class="dinfo"><div class="dtag">PATAGONIA</div><h3>Bariloche</h3><p>La puerta de la Patagonia andina. El Lago Nahuel Huapi, el Cerro Catedral — el ski resort más grande de Sudamérica —, el Circuito Chico y la Ruta de los Siete Lagos. Nieve en invierno, trekking y kayak en verano. Un destino para todas las estaciones.</p><div class="dfacts"><div class="df"><div class="dfl">Ski season</div><div class="dfv">Jun – Sep</div></div><div class="df"><div class="dfl">Vuelo desde BUE</div><div class="dfv">~2,5 horas</div></div></div><div class="dnp">Próximamente incorporamos paquetes a este destino.</div><div class="dbtns"><button class="dbs" onclick="openWA('Hola! Quiero diseñar un viaje a Bariloche con Ship Experience')">Diseñar mi viaje →</button></div></div></div></div>
-
-<div id="d-calafate" class="dsec"><div class="dsec-in rev"><div class="dimg"><img src="https://images.unsplash.com/photo-1531761535209-180857e9d4a3?w=800&q=80" alt="El Calafate" loading="lazy"><div class="dimg-ov"></div></div><div class="dinfo"><div class="dtag">PATAGONIA SUR</div><h3>El Calafate</h3><p>Hogar del Glaciar Perito Moreno, uno de los pocos en constante movimiento y crecimiento. Patrimonio de la Humanidad, fascina con sus desprendimientos de hielo. Trekking sobre el hielo y navegación entre icebergs completan una experiencia única en el planeta.</p><div class="dfacts"><div class="df"><div class="dfl">Mejor época</div><div class="dfv">Oct a Abr</div></div><div class="df"><div class="dfl">UNESCO</div><div class="dfv">Los Glaciares 1981</div></div></div><div class="dnp">Próximamente incorporamos paquetes a este destino.</div><div class="dbtns"><button class="dbs" onclick="openWA('Hola! Quiero diseñar un viaje a El Calafate con Ship Experience')">Diseñar mi viaje →</button></div></div></div></div>
-
+<div id="d-iguazu" class="dsec"><div class="dsec-in rev"><div class="dimg"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80" alt="Cataratas del Iguazú" loading="lazy"><div class="dimg-ov"></div></div><div class="dinfo"><div class="dtag">ARGENTINA · BRASIL</div><h3>Cataratas del Iguazú</h3><p>Una de las siete maravillas naturales del mundo. Las 275 caídas de agua del río Iguazú, con la Garganta del Diablo como protagonista. Declaradas Patrimonio de la Humanidad en 1984, se visitan desde el lado argentino y desde el brasileño para la vista panorámica.</p><div class="dfacts"><div class="df"><div class="dfl">Mejor época</div><div class="dfv">Todo el año</div></div><div class="df"><div class="dfl">UNESCO</div><div class="dfv">Patrimonio 1984</div></div></div><div class="dbtns"><button class="dbp" onclick="switchMode('grupal');doSearchDest('iguazu')">Ver paquetes</button><button class="dbs" onclick="openWA('Hola! Quiero consultar sobre Cataratas del Iguazú con Ship Experience')">Consultar →</button></div></div></div></div>
+<div id="d-bariloche" class="dsec"><div class="dsec-in"><div class="dimg"><img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800&q=80" alt="Bariloche" loading="lazy"><div class="dimg-ov"></div></div><div class="dinfo"><div class="dtag">PATAGONIA</div><h3>Bariloche</h3><p>La puerta de la Patagonia andina. El Lago Nahuel Huapi, el Cerro Catedral — el ski resort más grande de Sudamérica —, el Circuito Chico y la Ruta de los Siete Lagos. Nieve en invierno, trekking y kayak en verano.</p><div class="dfacts"><div class="df"><div class="dfl">Ski season</div><div class="dfv">Jun – Sep</div></div><div class="df"><div class="dfl">Vuelo desde BUE</div><div class="dfv">~2,5 horas</div></div></div><div class="dnp">Próximamente incorporamos paquetes a este destino.</div><div class="dbtns"><button class="dbs" onclick="openWA('Hola! Quiero diseñar un viaje a Bariloche con Ship Experience')">Diseñar mi viaje →</button></div></div></div></div>
+<div id="d-calafate" class="dsec"><div class="dsec-in rev"><div class="dimg"><img src="https://images.unsplash.com/photo-1531761535209-180857e9d4a3?w=800&q=80" alt="El Calafate" loading="lazy"><div class="dimg-ov"></div></div><div class="dinfo"><div class="dtag">PATAGONIA SUR</div><h3>El Calafate</h3><p>Hogar del Glaciar Perito Moreno, uno de los pocos en constante crecimiento. Patrimonio de la Humanidad, fascina con sus desprendimientos de hielo. Trekking sobre el hielo y navegación entre icebergs completan una experiencia única.</p><div class="dfacts"><div class="df"><div class="dfl">Mejor época</div><div class="dfv">Oct a Abr</div></div><div class="df"><div class="dfl">UNESCO</div><div class="dfv">Los Glaciares 1981</div></div></div><div class="dnp">Próximamente incorporamos paquetes a este destino.</div><div class="dbtns"><button class="dbs" onclick="openWA('Hola! Quiero diseñar un viaje a El Calafate con Ship Experience')">Diseñar mi viaje →</button></div></div></div></div>
 <div id="d-ushuaia" class="dsec"><div class="dsec-in"><div class="dimg"><img src="https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=800&q=80" alt="Ushuaia" loading="lazy"><div class="dimg-ov"></div></div><div class="dinfo"><div class="dtag">FIN DEL MUNDO</div><h3>Ushuaia</h3><p>La ciudad más austral del mundo. El Parque Nacional Tierra del Fuego, los cruceros por el Canal de Beagle y las excursiones con lobos marinos. En invierno, el Cerro Castor transforma Ushuaia en un paraíso de nieve.</p><div class="dfacts"><div class="df"><div class="dfl">Mejor época</div><div class="dfv">Nov a Mar</div></div><div class="df"><div class="dfl">Latitud</div><div class="dfv">54° Sur</div></div></div><div class="dnp">Próximamente incorporamos paquetes a este destino.</div><div class="dbtns"><button class="dbs" onclick="openWA('Hola! Quiero diseñar un viaje a Ushuaia con Ship Experience')">Diseñar mi viaje →</button></div></div></div></div>
-
-<div id="d-mendoza" class="dsec"><div class="dsec-in rev"><div class="dimg"><img src="https://images.unsplash.com/photo-1474552226712-ac0f0961a954?w=800&q=80" alt="Mendoza" loading="lazy"><div class="dimg-ov"></div></div><div class="dinfo"><div class="dtag">CUYO</div><h3>Mendoza</h3><p>Capital mundial del Malbec y puerta de los Andes. Bodegas en Luján de Cuyo y el Valle de Uco, el Aconcagua a 6.962 msnm, alta montaña y termas de Cacheuta. Un destino de clase mundial que combina vino, aventura y cultura.</p><div class="dfacts"><div class="df"><div class="dfl">Especialidad</div><div class="dfv">Enoturismo</div></div><div class="df"><div class="dfl">Mejor época</div><div class="dfv">Mar–May / Sep–Nov</div></div></div><div class="dnp">Próximamente incorporamos paquetes a este destino.</div><div class="dbtns"><button class="dbs" onclick="openWA('Hola! Quiero diseñar un viaje a Mendoza con Ship Experience')">Diseñar mi viaje →</button></div></div></div></div>
-
-<div id="d-sanrafael" class="dsec"><div class="dsec-in"><div class="dimg"><img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80" alt="San Rafael" loading="lazy"><div class="dimg-ov"></div></div><div class="dinfo"><div class="dtag">MENDOZA SUR</div><h3>San Rafael</h3><p>El Cañón del Atuel con su lago turquesa y formaciones de colores es la joya del sur mendocino. Rafting, kayak, trekking y bodegas boutique para quienes buscan aventura y naturaleza auténtica. Sin multitudes, con toda la magia de Cuyo.</p><div class="dfacts"><div class="df"><div class="dfl">Actividad top</div><div class="dfv">Rafting Atuel</div></div><div class="df"><div class="dfl">Mejor época</div><div class="dfv">Oct a Abr</div></div></div><div class="dnp">Próximamente incorporamos paquetes a este destino.</div><div class="dbtns"><button class="dbs" onclick="openWA('Hola! Quiero diseñar un viaje a San Rafael con Ship Experience')">Diseñar mi viaje →</button></div></div></div></div>
-
-<div id="d-puertomadryn" class="dsec"><div class="dsec-in rev"><div class="dimg"><img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&q=80" alt="Puerto Madryn" loading="lazy"><div class="dimg-ov"></div></div><div class="dinfo"><div class="dtag">CHUBUT · PATAGONIA</div><h3>Puerto Madryn</h3><p>La capital del avistaje de ballenas en Argentina. La Península Valdés — Patrimonio de la Humanidad — recibe entre junio y diciembre a las ballenas francas australes. Pingüinos, lobos marinos y orcas completan un destino de fauna única en el mundo.</p><div class="dfacts"><div class="df"><div class="dfl">Ballenas</div><div class="dfv">Jun a Dic</div></div><div class="df"><div class="dfl">UNESCO</div><div class="dfv">Península Valdés</div></div></div><div class="dnp">Próximamente incorporamos paquetes a este destino.</div><div class="dbtns"><button class="dbs" onclick="openWA('Hola! Quiero diseñar un viaje a Puerto Madryn con Ship Experience')">Diseñar mi viaje →</button></div></div></div></div>
-
+<div id="d-mendoza" class="dsec"><div class="dsec-in rev"><div class="dimg"><img src="https://images.unsplash.com/photo-1474552226712-ac0f0961a954?w=800&q=80" alt="Mendoza" loading="lazy"><div class="dimg-ov"></div></div><div class="dinfo"><div class="dtag">CUYO</div><h3>Mendoza</h3><p>Capital mundial del Malbec y puerta de los Andes. Bodegas en Luján de Cuyo y el Valle de Uco, el Aconcagua a 6.962 msnm, alta montaña y termas de Cacheuta. Un destino de clase mundial.</p><div class="dfacts"><div class="df"><div class="dfl">Especialidad</div><div class="dfv">Enoturismo</div></div><div class="df"><div class="dfl">Mejor época</div><div class="dfv">Mar–May / Sep–Nov</div></div></div><div class="dnp">Próximamente incorporamos paquetes a este destino.</div><div class="dbtns"><button class="dbs" onclick="openWA('Hola! Quiero diseñar un viaje a Mendoza con Ship Experience')">Diseñar mi viaje →</button></div></div></div></div>
+<div id="d-sanrafael" class="dsec"><div class="dsec-in"><div class="dimg"><img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80" alt="San Rafael" loading="lazy"><div class="dimg-ov"></div></div><div class="dinfo"><div class="dtag">MENDOZA SUR</div><h3>San Rafael</h3><p>El Cañón del Atuel con su lago turquesa y formaciones de colores es la joya del sur mendocino. Rafting, kayak, trekking y bodegas boutique para quienes buscan aventura y naturaleza auténtica sin multitudes.</p><div class="dfacts"><div class="df"><div class="dfl">Actividad top</div><div class="dfv">Rafting Atuel</div></div><div class="df"><div class="dfl">Mejor época</div><div class="dfv">Oct a Abr</div></div></div><div class="dnp">Próximamente incorporamos paquetes a este destino.</div><div class="dbtns"><button class="dbs" onclick="openWA('Hola! Quiero diseñar un viaje a San Rafael con Ship Experience')">Diseñar mi viaje →</button></div></div></div></div>
+<div id="d-puertomadryn" class="dsec"><div class="dsec-in rev"><div class="dimg"><img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&q=80" alt="Puerto Madryn" loading="lazy"><div class="dimg-ov"></div></div><div class="dinfo"><div class="dtag">CHUBUT · PATAGONIA</div><h3>Puerto Madryn</h3><p>La capital del avistaje de ballenas en Argentina. La Península Valdés — Patrimonio de la Humanidad — recibe entre junio y diciembre a las ballenas francas australes. Pingüinos, lobos marinos y orcas completan un destino único.</p><div class="dfacts"><div class="df"><div class="dfl">Ballenas</div><div class="dfv">Jun a Dic</div></div><div class="df"><div class="dfl">UNESCO</div><div class="dfv">Península Valdés</div></div></div><div class="dnp">Próximamente incorporamos paquetes a este destino.</div><div class="dbtns"><button class="dbs" onclick="openWA('Hola! Quiero diseñar un viaje a Puerto Madryn con Ship Experience')">Diseñar mi viaje →</button></div></div></div></div>
 <div id="d-sur" class="dsec"><div class="dsec-in"><div class="dimg"><img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&q=80" alt="Sur Argentino" loading="lazy"><div class="dimg-ov"></div></div><div class="dinfo"><div class="dtag">PATAGONIA</div><h3>Sur Argentino</h3><p>Uno de los rincones más salvajes del planeta. Estepa patagónica, fiordos, bosques petrificados y lagos de colores imposibles. Un territorio inmenso para desconectarse y reconectarse con la naturaleza en estado puro.</p><div class="dfacts"><div class="df"><div class="dfl">Mejor época</div><div class="dfv">Nov a Mar</div></div><div class="df"><div class="dfl">Extensión</div><div class="dfv">+700.000 km²</div></div></div><div class="dnp">Próximamente incorporamos paquetes a este destino.</div><div class="dbtns"><button class="dbs" onclick="openWA('Hola! Quiero diseñar un viaje al Sur Argentino con Ship Experience')">Diseñar mi viaje →</button></div></div></div></div>
-
-<div id="d-carlospaz" class="dsec"><div class="dsec-in rev"><div class="dimg"><img src="https://images.unsplash.com/photo-1501854140801-50d01698950b?w=800&q=80" alt="Villa Carlos Paz" loading="lazy"><div class="dimg-ov"></div></div><div class="dinfo"><div class="dtag">CÓRDOBA</div><h3>Villa Carlos Paz</h3><p>El destino más visitado de Córdoba, a orillas del lago San Roque. Las Sierras Chicas, gastronomía, entretenimiento y vida nocturna hacen de Carlos Paz el refugio ideal para familias y grupos que buscan descanso y diversión.</p><div class="dfacts"><div class="df"><div class="dfl">Mejor época</div><div class="dfv">Dic a Mar</div></div><div class="df"><div class="dfl">Ideal para</div><div class="dfv">Familias</div></div></div><div class="dnp">Próximamente incorporamos paquetes a este destino.</div><div class="dbtns"><button class="dbs" onclick="openWA('Hola! Quiero diseñar un viaje a Villa Carlos Paz con Ship Experience')">Diseñar mi viaje →</button></div></div></div></div>
-
+<div id="d-carlospaz" class="dsec"><div class="dsec-in rev"><div class="dimg"><img src="https://images.unsplash.com/photo-1501854140801-50d01698950b?w=800&q=80" alt="Villa Carlos Paz" loading="lazy"><div class="dimg-ov"></div></div><div class="dinfo"><div class="dtag">CÓRDOBA</div><h3>Villa Carlos Paz</h3><p>El destino más visitado de Córdoba, a orillas del lago San Roque. Las Sierras Chicas, gastronomía, entretenimiento y vida nocturna hacen de Carlos Paz el refugio ideal para familias y grupos.</p><div class="dfacts"><div class="df"><div class="dfl">Mejor época</div><div class="dfv">Dic a Mar</div></div><div class="df"><div class="dfl">Ideal para</div><div class="dfv">Familias</div></div></div><div class="dnp">Próximamente incorporamos paquetes a este destino.</div><div class="dbtns"><button class="dbs" onclick="openWA('Hola! Quiero diseñar un viaje a Villa Carlos Paz con Ship Experience')">Diseñar mi viaje →</button></div></div></div></div>
 <div id="d-puntacana" class="dsec"><div class="dsec-in"><div class="dimg"><img src="https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?w=800&q=80" alt="Punta Cana" loading="lazy"><div class="dimg-ov"></div></div><div class="dinfo"><div class="dtag">CARIBE · REPÚBLICA DOMINICANA</div><h3>Punta Cana</h3><p>El Caribe en su máxima expresión. Arena blanca, aguas turquesas y resorts all inclusive de 5 estrellas. Playa Bávaro, Arena Gorda, Macao e Isla Saona hacen de Punta Cana el destino más demandado de Latinoamérica.</p><div class="dfacts"><div class="df"><div class="dfl">Temperatura</div><div class="dfv">26–32°C</div></div><div class="df"><div class="dfl">Vuelo desde MDZ</div><div class="dfv">~9 horas</div></div></div><div class="dbtns"><button class="dbp" onclick="switchMode('grupal');doSearchDest('puntacana')">Ver paquetes</button><button class="dbs" onclick="openWA('Hola! Quiero consultar sobre Punta Cana con Ship Experience')">Consultar →</button></div></div></div></div>
-
-<div id="d-cancun" class="dsec"><div class="dsec-in rev"><div class="dimg"><img src="https://images.unsplash.com/photo-1552074284-5e88ef1aef18?w=800&q=80" alt="Cancún" loading="lazy"><div class="dimg-ov"></div></div><div class="dinfo"><div class="dtag">CARIBE · MÉXICO</div><h3>Cancún</h3><p>La joya del Caribe mexicano. Zona hotelera, ruinas mayas de Chichén Itzá y Tulum, cenotes de la Riviera Maya e Isla Mujeres. Cancún es mucho más que playa — es historia, gastronomía y cultura mezclados con el mejor mar del mundo.</p><div class="dfacts"><div class="df"><div class="dfl">Mejor época</div><div class="dfv">Dic a Abr</div></div><div class="df"><div class="dfl">Mayas</div><div class="dfv">Chichén Itzá</div></div></div><div class="dnp">Próximamente incorporamos paquetes a este destino.</div><div class="dbtns"><button class="dbs" onclick="openWA('Hola! Quiero diseñar un viaje a Cancún con Ship Experience')">Diseñar mi viaje →</button></div></div></div></div>
-
-<div id="d-aruba" class="dsec"><div class="dsec-in"><div class="dimg"><img src="https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?w=800&q=80" alt="Aruba" loading="lazy"><div class="dimg-ov"></div></div><div class="dinfo"><div class="dtag">CARIBE · ANTILLAS</div><h3>Aruba</h3><p>La isla feliz del Caribe, con clima perfecto todo el año. Eagle Beach y Palm Beach entre las mejores playas del mundo. Windsurf, snorkel, casinos y un ambiente multicultural que convierte cada visita en una experiencia difícil de olvidar.</p><div class="dfacts"><div class="df"><div class="dfl">Temperatura</div><div class="dfv">28°C promedio</div></div><div class="df"><div class="dfl">Lluvia</div><div class="dfv">Muy escasa</div></div></div><div class="dnp">Próximamente incorporamos paquetes a este destino.</div><div class="dbtns"><button class="dbs" onclick="openWA('Hola! Quiero diseñar un viaje a Aruba con Ship Experience')">Diseñar mi viaje →</button></div></div></div></div>
-
-<div id="d-curazao" class="dsec"><div class="dsec-in rev"><div class="dimg"><img src="https://images.unsplash.com/photo-1580502304784-8985b7eb7260?w=800&q=80" alt="Curazao" loading="lazy"><div class="dimg-ov"></div></div><div class="dinfo"><div class="dtag">CARIBE · ANTILLAS HOLANDESAS</div><h3>Curazao</h3><p>La isla más colorida del Caribe. Willemstad — su capital patrimonio de la UNESCO — con casas coloniales holandesas de colores brillantes a orillas del mar. Buceo en arrecifes intactos y gastronomía multicultural para viajeros que buscan algo diferente.</p><div class="dfacts"><div class="df"><div class="dfl">UNESCO</div><div class="dfv">Willemstad</div></div><div class="df"><div class="dfl">Ideal para</div><div class="dfv">Buceo</div></div></div><div class="dnp">Próximamente incorporamos paquetes a este destino.</div><div class="dbtns"><button class="dbs" onclick="openWA('Hola! Quiero diseñar un viaje a Curazao con Ship Experience')">Diseñar mi viaje →</button></div></div></div></div>
-
-<div id="d-brasil" class="dsec"><div class="dsec-in"><div class="dimg"><img src="https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=800&q=80" alt="Brasil" loading="lazy"><div class="dimg-ov"></div></div><div class="dinfo"><div class="dtag">BRASIL</div><h3>Brasil</h3><p>El país más grande y diverso de Sudamérica. Playas icónicas de Río, las aguas cristalinas de Maceió y Porto de Galinhas, la selva del Pantanal. Cultura vibrante, gastronomía singular y un calor humano que te hace sentir en casa desde el primer día.</p><div class="dfacts"><div class="df"><div class="dfl">Mejor época</div><div class="dfv">Dic a Mar</div></div><div class="df"><div class="dfl">Vuelo desde BUE</div><div class="dfv">2,5 a 4 horas</div></div></div><div class="dnp">Próximamente incorporamos paquetes a este destino.</div><div class="dbtns"><button class="dbs" onclick="openWA('Hola! Quiero diseñar un viaje a Brasil con Ship Experience')">Diseñar mi viaje →</button></div></div></div></div>
-
-<div id="d-europa" class="dsec"><div class="dsec-in rev"><div class="dimg"><img src="https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=800&q=80" alt="Europa" loading="lazy"><div class="dimg-ov"></div></div><div class="dinfo"><div class="dtag">EUROPA</div><h3>Europa</h3><p>Historia, arte y diversidad cultural sin límites. París, Venecia, Madrid, Roma, Grecia. Ship diseña cada itinerario europeo a medida para aprovechar cada día al máximo, sin perder tiempo ni pagar de más.</p><div class="dfacts"><div class="df"><div class="dfl">Mejor época</div><div class="dfv">Abr–Jun / Sep–Oct</div></div><div class="df"><div class="dfl">Vuelo desde BUE</div><div class="dfv">12 a 14 horas</div></div></div><div class="dnp">Próximamente incorporamos paquetes a este destino.</div><div class="dbtns"><button class="dbs" onclick="openWA('Hola! Quiero diseñar un viaje a Europa con Ship Experience')">Diseñar mi viaje →</button></div></div></div></div>
-
-<div id="d-deportivos" class="dsec"><div class="dsec-in"><div class="dimg"><img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800&q=80" alt="Eventos deportivos" loading="lazy"><div class="dimg-ov"></div></div><div class="dinfo"><div class="dtag">EVENTOS</div><h3>Eventos deportivos</h3><p>Vivir un gran evento en vivo es una experiencia que queda para siempre. Mundial de Fútbol 2026 en USA, México y Canadá, circuitos de Fórmula 1 en Mónaco, Monza, Silverstone y más. Entradas, alojamiento, traslados y logística completa.</p><div class="dfacts"><div class="df"><div class="dfl">Mundial 2026</div><div class="dfv">USA · MEX · CAN</div></div><div class="df"><div class="dfl">F1</div><div class="dfv">Circuitos mundiales</div></div></div><div class="dnp">Próximamente incorporamos paquetes a estos eventos.</div><div class="dbtns"><button class="dbs" onclick="openWA('Hola! Quiero consultar sobre paquetes a eventos deportivos con Ship Experience')">Consultar →</button></div></div></div></div>
+<div id="d-cancun" class="dsec"><div class="dsec-in rev"><div class="dimg"><img src="https://images.unsplash.com/photo-1552074284-5e88ef1aef18?w=800&q=80" alt="Cancún" loading="lazy"><div class="dimg-ov"></div></div><div class="dinfo"><div class="dtag">CARIBE · MÉXICO</div><h3>Cancún</h3><p>La joya del Caribe mexicano. Zona hotelera, ruinas mayas de Chichén Itzá, cenotes de la Riviera Maya e Isla Mujeres. Cancún es historia, gastronomía y cultura mezclados con el mejor mar del mundo.</p><div class="dfacts"><div class="df"><div class="dfl">Mejor época</div><div class="dfv">Dic a Abr</div></div><div class="df"><div class="dfl">Mayas</div><div class="dfv">Chichén Itzá</div></div></div><div class="dnp">Próximamente incorporamos paquetes a este destino.</div><div class="dbtns"><button class="dbs" onclick="openWA('Hola! Quiero diseñar un viaje a Cancún con Ship Experience')">Diseñar mi viaje →</button></div></div></div></div>
+<div id="d-aruba" class="dsec"><div class="dsec-in"><div class="dimg"><img src="https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?w=800&q=80" alt="Aruba" loading="lazy"><div class="dimg-ov"></div></div><div class="dinfo"><div class="dtag">CARIBE · ANTILLAS</div><h3>Aruba</h3><p>La isla feliz del Caribe, con clima perfecto todo el año. Eagle Beach y Palm Beach entre las mejores playas del mundo. Windsurf, snorkel, casinos y un ambiente multicultural que convierte cada visita en memorable.</p><div class="dfacts"><div class="df"><div class="dfl">Temperatura</div><div class="dfv">28°C promedio</div></div><div class="df"><div class="dfl">Lluvia</div><div class="dfv">Muy escasa</div></div></div><div class="dnp">Próximamente incorporamos paquetes a este destino.</div><div class="dbtns"><button class="dbs" onclick="openWA('Hola! Quiero diseñar un viaje a Aruba con Ship Experience')">Diseñar mi viaje →</button></div></div></div></div>
+<div id="d-curazao" class="dsec"><div class="dsec-in rev"><div class="dimg"><img src="https://images.unsplash.com/photo-1580502304784-8985b7eb7260?w=800&q=80" alt="Curazao" loading="lazy"><div class="dimg-ov"></div></div><div class="dinfo"><div class="dtag">CARIBE · ANTILLAS HOLANDESAS</div><h3>Curazao</h3><p>La isla más colorida del Caribe. Willemstad — Patrimonio UNESCO — con casas coloniales holandesas de colores brillantes a orillas del mar. Buceo en arrecifes intactos y gastronomía multicultural.</p><div class="dfacts"><div class="df"><div class="dfl">UNESCO</div><div class="dfv">Willemstad</div></div><div class="df"><div class="dfl">Ideal para</div><div class="dfv">Buceo</div></div></div><div class="dnp">Próximamente incorporamos paquetes a este destino.</div><div class="dbtns"><button class="dbs" onclick="openWA('Hola! Quiero diseñar un viaje a Curazao con Ship Experience')">Diseñar mi viaje →</button></div></div></div></div>
+<div id="d-brasil" class="dsec"><div class="dsec-in"><div class="dimg"><img src="https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=800&q=80" alt="Brasil" loading="lazy"><div class="dimg-ov"></div></div><div class="dinfo"><div class="dtag">BRASIL</div><h3>Brasil</h3><p>El país más grande y diverso de Sudamérica. Río de Janeiro, Maceió, Porto de Galinhas, Fernando de Noronha. Cultura vibrante, gastronomía singular y un calor humano que te hace sentir en casa desde el primer día.</p><div class="dfacts"><div class="df"><div class="dfl">Mejor época</div><div class="dfv">Dic a Mar</div></div><div class="df"><div class="dfl">Vuelo desde BUE</div><div class="dfv">2,5 a 4 horas</div></div></div><div class="dnp">Próximamente incorporamos paquetes a este destino.</div><div class="dbtns"><button class="dbs" onclick="openWA('Hola! Quiero diseñar un viaje a Brasil con Ship Experience')">Diseñar mi viaje →</button></div></div></div></div>
+<div id="d-europa" class="dsec"><div class="dsec-in rev"><div class="dimg"><img src="https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=800&q=80" alt="Europa" loading="lazy"><div class="dimg-ov"></div></div><div class="dinfo"><div class="dtag">EUROPA</div><h3>Europa</h3><p>Historia, arte y diversidad cultural sin límites. París, Venecia, Madrid, Roma, Grecia. Ship diseña cada itinerario europeo a medida para aprovechar cada día al máximo.</p><div class="dfacts"><div class="df"><div class="dfl">Mejor época</div><div class="dfv">Abr–Jun / Sep–Oct</div></div><div class="df"><div class="dfl">Vuelo desde BUE</div><div class="dfv">12 a 14 horas</div></div></div><div class="dnp">Próximamente incorporamos paquetes a este destino.</div><div class="dbtns"><button class="dbs" onclick="openWA('Hola! Quiero diseñar un viaje a Europa con Ship Experience')">Diseñar mi viaje →</button></div></div></div></div>
+<div id="d-deportivos" class="dsec"><div class="dsec-in"><div class="dimg"><img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800&q=80" alt="Eventos deportivos" loading="lazy"><div class="dimg-ov"></div></div><div class="dinfo"><div class="dtag">EVENTOS</div><h3>Eventos deportivos</h3><p>Mundial de Fútbol 2026 en USA, México y Canadá, circuitos de Fórmula 1 en Mónaco, Monza, Silverstone y más. Entradas, alojamiento, traslados y logística completa.</p><div class="dfacts"><div class="df"><div class="dfl">Mundial 2026</div><div class="dfv">USA · MEX · CAN</div></div><div class="df"><div class="dfl">F1</div><div class="dfv">Circuitos mundiales</div></div></div><div class="dnp">Próximamente incorporamos paquetes a estos eventos.</div><div class="dbtns"><button class="dbs" onclick="openWA('Hola! Quiero consultar sobre paquetes a eventos deportivos con Ship Experience')">Consultar →</button></div></div></div></div>
 
 <!-- ── FOOTER ── -->
 <footer>
-  <p><strong>SHIP EXPERIENCE</strong><br>Inteligencia Artesanal para tu próximo viaje · Argentina</p>
+  <p><strong>SHIP EXPERIENCE</strong><br>Inteligencia Artesanal para tu próximo viaje · Argentina<br>RNAV Legajo N° 20.395</p>
   <div class="flinks">
-    <a onclick="openWA('Hola! Quiero consultar sobre un viaje con Ship Experience')">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.554 4.103 1.523 5.824L.057 23.882a.5.5 0 0 0 .61.61l6.058-1.466A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.65-.52-5.16-1.424l-.36-.214-3.737.904.919-3.636-.235-.374A9.96 9.96 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
-      WhatsApp +54 11 7064-7148
-    </a>
-    <a href="https://www.instagram.com/shipexperience/" target="_blank" rel="noopener">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-      @shipexperience
-    </a>
-    <a href="https://www.tiktok.com/@shipexperience" target="_blank" rel="noopener">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.77a4.85 4.85 0 0 1-1.02-.08z"/></svg>
-      @shipexperience
-    </a>
+    <a onclick="openWA('Hola! Quiero consultar sobre un viaje con Ship Experience')"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.554 4.103 1.523 5.824L.057 23.882a.5.5 0 0 0 .61.61l6.058-1.466A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.65-.52-5.16-1.424l-.36-.214-3.737.904.919-3.636-.235-.374A9.96 9.96 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>WhatsApp +54 11 7064-7148</a>
+    <a href="https://www.instagram.com/shipexperience/" target="_blank" rel="noopener"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>@shipexperience</a>
+    <a href="https://www.tiktok.com/@shipexperience" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.77a4.85 4.85 0 0 1-1.02-.08z"/></svg>@shipexperience</a>
   </div>
-  <p style="margin-top:18px;font-size:11px;opacity:.45">© 2026 Ship Experience · shipexperience.com.ar</p>
+  <div class="footer-legal">
+    <a onclick="openPage('pg-tyc')">Términos y condiciones</a>
+    <a onclick="openPage('pg-faq')">Preguntas frecuentes</a>
+    <a onclick="openPage('pg-reservar')">¿Cómo reservar?</a>
+    <a href="https://agenciasdeviajes.ar/?s=20395" target="_blank" rel="noopener">RNAV Legajo 20.395 ↗</a>
+  </div>
+  <p style="margin-top:18px;font-size:11px;opacity:.4">© 2026 Ship Experience · shipexperience.com.ar</p>
 </footer>
 
-<!-- ── WA FLOAT ── -->
 <button class="waf" onclick="openWA('Hola! Quiero consultar sobre un viaje con Ship Experience')">
   <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.554 4.103 1.523 5.824L.057 23.882a.5.5 0 0 0 .61.61l6.058-1.466A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.65-.52-5.16-1.424l-.36-.214-3.737.904.919-3.636-.235-.374A9.96 9.96 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
   Consultar por WhatsApp
@@ -895,7 +824,16 @@
 <script>
 var mode='grupal';
 
-/* ── MODAL ── */
+/* MENÚ NAV */
+function toggleMenu(){var btn=document.getElementById('menu-btn'),dd=document.getElementById('nav-dd');btn.classList.toggle('open');dd.classList.toggle('open');}
+document.addEventListener('click',function(e){var btn=document.getElementById('menu-btn'),dd=document.getElementById('nav-dd');if(!btn.contains(e.target)&&!dd.contains(e.target)){btn.classList.remove('open');dd.classList.remove('open');}});
+
+/* PÁGINAS INSTITUCIONALES */
+function openPage(id){document.getElementById(id).classList.add('open');document.body.style.overflow='hidden';}
+function closePage(id){document.getElementById(id).classList.remove('open');document.body.style.overflow='';}
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){document.querySelectorAll('.page-modal.open,.modal-bg.open').forEach(function(el){el.classList.remove('open');});document.body.style.overflow='';}});
+
+/* MODAL PAQUETE */
 function openModal(el){
   var d=el.dataset;
   document.getElementById('m-photo').src=d.photo||'';
@@ -908,31 +846,23 @@ function openModal(el){
   document.getElementById('m-cuota').textContent=d.cuota||'';
   var inc=JSON.parse(d.inc||'[]');
   document.getElementById('m-inc').innerHTML=inc.map(function(i){return '<div class="modal-inc-item"><div class="modal-inc-dot"></div><div>'+i+'</div></div>';}).join('');
-  var ww=document.getElementById('m-warn-wrap');
-  ww.innerHTML=d.warn?'<div class="modal-warn">⚠ '+d.warn+'</div>':'';
-  var waRes=d.waRes||('Hola! Me interesa el paquete '+d.title+'. ¿Hay disponibilidad?');
-  var waInfo=d.waInfo||('Hola! Quiero más información sobre el paquete '+d.title);
-  document.getElementById('m-btn-res').onclick=function(){openWA(waRes);};
-  document.getElementById('m-btn-info').onclick=function(){openWA(waInfo);};
+  document.getElementById('m-warn-wrap').innerHTML=d.warn?'<div class="modal-warn">⚠ '+d.warn+'</div>':'';
+  document.getElementById('m-btn-res').onclick=function(){openWA(d.waRes||'Hola! Me interesa el paquete '+d.title+'. ¿Hay disponibilidad?');};
+  document.getElementById('m-btn-info').onclick=function(){openWA(d.waInfo||'Hola! Quiero más información sobre '+d.title);};
   document.getElementById('modal').classList.add('open');
   document.body.style.overflow='hidden';
 }
-function closeModal(e){
-  if(e.target===document.getElementById('modal')){
-    document.getElementById('modal').classList.remove('open');
-    document.body.style.overflow='';
-  }
-}
-document.addEventListener('keydown',function(e){if(e.key==='Escape'){document.getElementById('modal').classList.remove('open');document.body.style.overflow='';}});
+function closeModalPack(){document.getElementById('modal').classList.remove('open');document.body.style.overflow='';}
+function closeModalBg(e){if(e.target===document.getElementById('modal'))closeModalPack();}
 
-/* ── BANNERS ── */
+/* BANNERS */
 var bcur=0,btotal=4,bpct=0,bstep=100/(5500/50),bprog;
 function bgo(n){bcur=n;document.getElementById('btrack').style.transform='translateX(-'+n+'00%)';document.querySelectorAll('.bdot').forEach(function(d,i){d.classList.toggle('on',i===n);});bpct=0;}
 function bmove(d){bgo((bcur+d+btotal)%btotal);bReset();}
 function bReset(){clearInterval(bprog);bpct=0;bprog=setInterval(function(){bpct+=bstep;document.getElementById('bpfill').style.width=Math.min(bpct,100)+'%';if(bpct>=100)bmove(1);},50);}
 bReset();
 
-/* ── TABS & BÚSQUEDA ── */
+/* TABS & BÚSQUEDA */
 function switchMode(m){
   mode=m;var g=m==='grupal';
   document.getElementById('pg-g').classList.toggle('hidden',!g);
@@ -962,11 +892,10 @@ function doSearch(){
 function doSearchDest(dest){document.getElementById('s-dest').value=dest;document.getElementById('s-mes').value='';doSearch();document.querySelector('.packs-sec').scrollIntoView({behavior:'smooth'});}
 function clearSearch(e){if(e)e.preventDefault();document.getElementById('s-dest').value='';document.getElementById('s-mes').value='';document.getElementById('s-orig').value='';doSearch();}
 
-/* ── DESTINOS ── */
+/* DESTINOS */
 function toggleDest(){var c=document.getElementById('dest-cont'),ico=document.getElementById('dest-ico'),open=c.classList.contains('open');c.classList.toggle('open',!open);ico.classList.toggle('open',!open);}
 function goTo(id){var el=document.querySelector(id);if(!el)return;var dc=document.getElementById('dest-cont');if(!dc.classList.contains('open')){dc.classList.add('open');document.getElementById('dest-ico').classList.add('open');}setTimeout(function(){el.scrollIntoView({behavior:'smooth'});},100);}
 
-/* ── UTILS ── */
 function openWA(msg){window.open('https://wa.me/541170647148?text='+encodeURIComponent(msg),'_blank');}
 </script>
 </body>
