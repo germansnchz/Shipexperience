@@ -2,18 +2,27 @@ const { chromium } = require('playwright');
 const fs = require('fs');
 
 (async () => {
-  // Configuración para ignorar errores de seguridad SSL
   const browser = await chromium.launch({ headless: true });
+  
+  // 1. Configuramos el contexto con un "Disfraz de Humano" (User Agent)
   const context = await browser.newContext({
-    ignoreHTTPSErrors: true // Esto soluciona el error de la captura
+    userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36',
+    viewport: { width: 1280, height: 720 },
+    ignoreHTTPSErrors: true
   });
+  
   const page = await context.newPage();
 
   try {
-    console.log("Iniciando navegación...");
-    // Navegación con tiempo de espera extendido
+    console.log("Iniciando navegación con modo sigilo...");
+    
+    // Intentamos entrar a la raíz primero para ganar confianza
+    await page.goto('https://app.redevet.com/red/', { waitUntil: 'domcontentloaded' });
+    await page.waitForTimeout(2000);
+    
+    // Ahora vamos al buscador
     await page.goto('https://app.redevet.com/red/ag/Buscador.asp', { 
-      waitUntil: 'networkidle',
+      waitUntil: 'commit', // 'commit' es más flexible ante errores de SSL
       timeout: 60000 
     });
 
