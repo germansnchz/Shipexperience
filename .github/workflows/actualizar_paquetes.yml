@@ -1,15 +1,18 @@
-
 name: Robot Tripulante Ship - Actualización Red Evt
 
 on:
   schedule:
-    # 18:00 UTC son las 15:00 hs de Argentina
-    - cron: '0 18 * * *'
-  workflow_dispatch: # Te permite ejecutarlo manualmente desde GitHub si tenés una urgencia
+    - cron: '0 18 * * *' # Corre a las 15:00 hs de Argentina
+  workflow_dispatch: # Esto activa el botón "Run workflow"
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true # Esto elimina los avisos de Node
 
 jobs:
   scrape:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # Permiso explícito para que el robot guarde paquetes.json
     steps:
       - name: Checkout del código
         uses: actions/checkout@v4
@@ -17,7 +20,7 @@ jobs:
       - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '24'
 
       - name: Instalar Navegador del Robot
         run: |
@@ -29,13 +32,12 @@ jobs:
           RED_EVT_USER: ${{ secrets.RED_EVT_USER }}
           RED_EVT_PASS: ${{ secrets.RED_EVT_PASS }}
           EMBARQUES_PRIORITARIOS: "AEROPARQUE, EZEIZA, BUENOS AIRES, MENDOZA, SAN RAFAEL, ROSARIO, CORDOBA"
-        run: |
-          node robot.js
+        run: node robot.js
 
       - name: Guardar Novedades en la Web
         run: |
           git config --global user.name "Robot Tripulante Ship"
           git config --global user.email "bot@shipexperience.com.ar"
           git add paquetes.json
-          git commit -m "Novedades de paquetes actualizadas automáticamente - $(date +'%d/%m/%Y')" || echo "Sin cambios"
+          git commit -m "Novedades actualizadas - $(date +'%d/%m/%Y')" || echo "Sin cambios"
           git push
