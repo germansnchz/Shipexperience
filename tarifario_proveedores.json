@@ -1,0 +1,30 @@
+{
+  "_meta": {
+    "version": "1.0",
+    "updated": "2026-05-23",
+    "description": "Tarifario Ship Experience — generado por scraper de proveedores",
+    "fields": ["price", "cuota", "cupos", "disponible", "dates", "notas"]
+  },
+  "paquetes": [
+    { "id": "MDZ-TUC-0604",  "price": "$300.000",   "cuota": "O cuotas sin interés",  "cupos": 8,  "disponible": true,  "dates": "04/06/2026 · 2 noches",      "notas": "" },
+    { "id": "MDZ-MRL-2006",  "price": "$280.000",   "cuota": "O cuotas sin interés",  "cupos": 10, "disponible": true,  "dates": "20/06/2026 · 3 noches",      "notas": "" },
+    { "id": "MDZ-RHO-2606",  "price": "$500.000",   "cuota": "O cuotas sin interés",  "cupos": 12, "disponible": true,  "dates": "26/06/2026 · 5 noches",      "notas": "" },
+    { "id": "MDZ-RHO-1307",  "price": "$680.000",   "cuota": "O cuotas sin interés",  "cupos": 12, "disponible": true,  "dates": "13/07/2026 · 7 noches",      "notas": "" },
+    { "id": "MDZ-TAL-1607",  "price": "$330.000",   "cuota": "O cuotas sin interés",  "cupos": 15, "disponible": true,  "dates": "16/07/2026 · 2 noches",      "notas": "Entradas al parque no incluidas" },
+    { "id": "MDZ-NOR-0407",  "price": "$600.000",   "cuota": "O cuotas sin interés",  "cupos": 8,  "disponible": true,  "dates": "04/07/2026 · desde Mendoza", "notas": "" },
+    { "id": "MDZ-NOR-2107",  "price": "$550.000",   "cuota": "O cuotas sin interés",  "cupos": 8,  "disponible": true,  "dates": "21/07/2026 · desde Mendoza", "notas": "" },
+    { "id": "MDZ-BUE-1007",  "price": "$500.000",   "cuota": "O cuotas sin interés",  "cupos": 20, "disponible": true,  "dates": "10/07/2026 · desde Mendoza", "notas": "" },
+    { "id": "BUE-IGU-1906",  "price": "$316.292",   "cuota": "O cuotas sin interés",  "cupos": 6,  "disponible": true,  "dates": "19/06/2026 · 3 noches",      "notas": "Entradas parque no incluidas" },
+    { "id": "BUE-CAT-0807",  "price": "$620.641",   "cuota": "O cuotas sin interés",  "cupos": 10, "disponible": true,  "dates": "08/07/2026 · 5 noches",      "notas": "" },
+    { "id": "BUE-NOR-2007",  "price": "$736.413",   "cuota": "O cuotas sin interés",  "cupos": 8,  "disponible": true,  "dates": "20/07/2026 · 5 noches",      "notas": "" },
+    { "id": "BUE-MDZ-2607",  "price": "$417.802",   "cuota": "O cuotas sin interés",  "cupos": 8,  "disponible": true,  "dates": "26/07/2026 · 3 noches",      "notas": "" },
+    { "id": "BUE-BAR-2007",  "price": "$636.328",   "cuota": "O cuotas sin interés",  "cupos": 10, "disponible": true,  "dates": "20/07/2026 · 5 noches",      "notas": "" },
+    { "id": "BUE-CAL-0104",  "price": "$1.000.000", "cuota": "O cuotas sin interés",  "cupos": 6,  "disponible": true,  "dates": "01/04/2027 · 4 noches",      "notas": "" },
+    { "id": "BUE-MAC-1611",  "price": "U$S 1.386",  "cuota": "O cuotas sin interés",  "cupos": 8,  "disponible": true,  "dates": "16/11/2026 · 7 noches",      "notas": "" },
+    { "id": "BUE-EUR-1109",  "price": "U$S 2.299",  "cuota": "O cuotas sin interés",  "cupos": 12, "disponible": true,  "dates": "11/09/2026 · 14 noches",     "notas": "" },
+    { "id": "BUE-CRU-ENE27", "price": "U$S 1.895",  "cuota": "O cuotas sin interés",  "cupos": 20, "disponible": true,  "dates": "05/01/2027 · 8 noches",      "notas": "" },
+    { "id": "BUE-CRU-AYN26", "price": "U$S 2.150",  "cuota": "O cuotas sin interés",  "cupos": 15, "disponible": true,  "dates": "27/12/2026 · 8 noches",      "notas": "" },
+    { "id": "BUE-CRU-CAR27", "price": "U$S 1.780",  "cuota": "O cuotas sin interés",  "cupos": 15, "disponible": true,  "dates": "25/02/2027 · 8 noches",      "notas": "" },
+    { "id": "BUE-CRU-URU27", "price": "U$S 615",    "cuota": "O cuotas sin interés",  "cupos": 20, "disponible": true,  "dates": "08/03/2027 · 4 noches",      "notas": "" }
+  ]
+}
