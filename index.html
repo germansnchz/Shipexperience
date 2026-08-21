@@ -70,7 +70,7 @@ html{scroll-behavior:smooth}
 body{font-family:'Inter',sans-serif;color:var(--text);background:#fff;overflow-x:hidden}
 
 /* ── NAV ── */
-nav{background:var(--sp);padding:0 24px;display:flex;align-items:center;justify-content:space-between;position:relative;z-index:300;height:64px;gap:10px;box-shadow:0 2px 20px rgba(74,53,112,.4)}
+nav{background:var(--sp);padding:0 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:300;height:64px;gap:10px;box-shadow:0 2px 20px rgba(74,53,112,.4)}
 .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0}
 .nav-logo-img{width:44px;height:44px;object-fit:contain;display:block;filter:none}
 .nav-logo-text{display:flex;flex-direction:column;line-height:1.1}
@@ -165,11 +165,12 @@ nav{background:var(--sp);padding:0 24px;display:flex;align-items:center;justify-
 }
 .sf-group{display:flex;flex-direction:column;gap:6px}
 .sf-label{font-size:11px;font-weight:600;color:var(--muted);letter-spacing:.5px;text-transform:uppercase}
-.sf-sel{border:1.5px solid var(--border);border-radius:10px;padding:11px 32px 11px 14px;font-size:14px;color:var(--text);font-family:'Inter',sans-serif;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7280' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 12px center;appearance:none;cursor:pointer;transition:border-color .2s;outline:none;height:44px}
+.sf-sel{border:1.5px solid var(--border);border-radius:10px;padding:11px 32px 11px 14px;font-size:16px;color:var(--text);font-family:'Inter',sans-serif;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7280' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 12px center;appearance:none;cursor:pointer;transition:border-color .2s;outline:none;height:48px;width:100%;-webkit-tap-highlight-color:transparent}
 .sf-sel:focus{border-color:var(--sp)}
-.s-btn{background:var(--so);color:#fff;border:none;padding:0 24px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;display:flex;align-items:center;gap:8px;white-space:nowrap;transition:opacity .2s;height:44px}
+.s-btn{background:var(--so);color:#fff;border:none;padding:0 24px;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;display:flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap;transition:opacity .2s;height:48px}
 .s-btn:hover{opacity:.88}
-.rbar{background:#fff;max-width:880px;margin:0 auto;padding:10px 28px 14px;font-size:13px;color:var(--muted);display:none;border-top:1px solid var(--border)}
+.rbar{background:#fff;max-width:880px;margin:0 auto;padding:10px 16px 14px;font-size:13px;color:var(--muted);display:none;border-top:1px solid var(--border)}
+@media(min-width:576px){.rbar{padding:10px 28px 14px}}
 .rbar.on{display:block}
 .rbar a{color:var(--sp);text-decoration:none;font-weight:500}
 
@@ -802,9 +803,8 @@ nav{padding:0 14px;gap:6px;height:58px}
 </nav>
 
 <!-- SECCIÓN DE BÚSQUEDA PRINCIPAL -->
-<section class="search-section" style="background:#f8f9fb;padding:20px 16px;box-shadow:0 2px 8px rgba(0,0,0,0.05);">
-  <div class="search-box" style="margin:0;padding:0 28px;">
-    <div class="search-box">
+<section class="search-section" style="background:#f8f9fb;box-shadow:0 2px 8px rgba(0,0,0,0.05);">
+    <div class="search-box" style="border-radius:16px;margin:0 auto;">
       <div class="search-tabs">
         <button class="stab active" id="st-g" onclick="switchMode('grupal')">Paquetes grupales</button>
         <button class="stab" id="st-p" onclick="switchMode('personalizado')">Experiencias personalizadas</button>
@@ -1509,8 +1509,34 @@ function switchMode(m) {
   }
 }
 
+// ── DESTINOS DEL BUSCADOR: sincronizados 100% con Google Sheets ──
+// Garantiza que NINGÚN destino cargado en la hoja quede afuera del selector,
+// aunque sea nuevo y no esté en las categorías predefinidas de abajo.
+function actualizarSelectDestinos() {
+  const sel = document.getElementById('s-dest');
+  if (!sel) return;
+  const yaListados = new Set(Array.from(sel.querySelectorAll('option')).map(o => o.value).filter(Boolean));
+  const faltantes = [...new Set(ALL_PACKS.map(p => (p.dest || '').trim()).filter(Boolean))]
+    .filter(d => !yaListados.has(d));
+  if (!faltantes.length) return;
+  const og = document.createElement('optgroup');
+  og.label = '📍 Otros destinos';
+  faltantes.sort((a, b) => a.localeCompare(b, 'es')).forEach(d => {
+    const pack = ALL_PACKS.find(p => p.dest === d);
+    let label = d.charAt(0).toUpperCase() + d.slice(1);
+    if (pack && pack.title) {
+      label = pack.title.replace(/\s*[-–]?\s*\d.*$/, '').trim() || pack.title;
+    }
+    const opt = document.createElement('option');
+    opt.value = d;
+    opt.textContent = label;
+    og.appendChild(opt);
+  });
+  sel.appendChild(og);
+}
+
 // ── INIT ──
-cargarPaquetes().then(() => { renderAll(); cargarCupos(); });
+cargarPaquetes().then(() => { renderAll(); cargarCupos(); actualizarSelectDestinos(); });
 </script>
 
 // ── GENERAR IMAGEN PROMOCIONAL ──
