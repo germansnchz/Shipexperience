@@ -1383,7 +1383,11 @@ function switchMode(m) {
 }
 
 // ── INIT ──
-cargarPaquetes().then(() => { renderAll(); cargarCupos(); actualizarDestinosDelSelect(); });
+cargarPaquetes().then(() => {
+  renderAll();
+  actualizarDestinosDelSelect();
+  cargarCupos();
+}); cargarCupos(); actualizarDestinosDelSelect(); });
 </script>
 
 // ── GENERAR IMAGEN PROMOCIONAL ──
@@ -1486,30 +1490,41 @@ function generarImagenPromo(packData) {
 
 
 // ── CUPOS AÉREOS ──
-const SHEET_CUPOS_URL = 'TU_LINK_HOJA_CUPOS_AQUI/pub?output=csv';
+const SHEET_CUPOS_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTQBorFYhpdBH-M2RXM4CTM5-EDyTkRZcTkhLWpEAxyCOWejBsg5rTavP6oXeyOcw/pub?gid=1242910779&single=true&output=csv';
 
 function cargarCupos() {
   fetch(SHEET_CUPOS_URL + '&cb=' + Date.now())
     .then(res => res.text())
     .then(csv => {
       const { data } = Papa.parse(csv, { header: true, skipEmptyLines: true });
+      if (!data || data.length === 0) {
+        console.log('Cupos no disponibles');
+        return;
+      }
       const container = document.getElementById('cupos-container');
+      if (!container) return;
+      
       container.innerHTML = data.map(cupo => `
-        <div style="background:#fff;border-radius:12px;padding:24px;box-shadow:0 2px 8px rgba(0,0,0,0.1);">
-          <div style="font-weight:bold;color:#1F4E78;font-size:18px;margin-bottom:8px;">${cupo.ruta || ''}</div>
-          <div style="color:#666;font-size:14px;margin-bottom:16px;">
-            <div>📅 ${cupo.fecha || ''}</div>
-            <div>✈️ ${cupo.aerolinea || ''}</div>
-            <div>💺 Cupos: ${cupo.cupos || ''}</div>
-            <div>💰 Desde ${cupo.precio || ''}</div>
+        <div style="background:#fff;border-radius:12px;padding:24px;box-shadow:0 2px 8px rgba(0,0,0,0.1);display:flex;flex-direction:column;justify-content:space-between;">
+          <div>
+            <div style="font-weight:bold;color:#1F4E78;font-size:18px;margin-bottom:8px;">${cupo.ruta || 'Ruta'}</div>
+            <div style="color:#666;font-size:14px;margin-bottom:16px;line-height:1.6;">
+              <div>📅 ${cupo.fecha || ''}</div>
+              <div>✈️ ${cupo.aerolinea || ''}</div>
+              <div>💺 Cupos: ${cupo.cupos || ''}</div>
+              <div style="font-weight:bold;color:#FFC107;margin-top:8px;">💰 Desde ${cupo.precio || ''}</div>
+            </div>
           </div>
-          <button onclick="window.open('https://wa.me/${window.WA_NUMBER}?text=Consulta%20cupo%20aéreo:%20${encodeURIComponent(cupo.ruta)}')" style="background:#25D366;color:#fff;border:none;border-radius:8px;width:100%;padding:10px;font-weight:500;cursor:pointer;">
+          <button onclick="window.open('https://wa.me/${window.WA_NUMBER}?text=Consulta%20cupo%20aéreo:%20${encodeURIComponent(cupo.ruta || 'Cupo')}')" style="background:#25D366;color:#fff;border:none;border-radius:8px;width:100%;padding:12px;font-weight:500;cursor:pointer;font-size:14px;">
             Consultar por WhatsApp
           </button>
         </div>
       `).join('');
+      
+      console.log('Cupos cargados: ' + data.length);
     })
-    .catch(err => console.log('Cupos no disponibles aún'));
+    .catch(err => console.log('Error cargando cupos:', err));
+}
 }
 
 
