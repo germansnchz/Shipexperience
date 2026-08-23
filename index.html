@@ -2131,7 +2131,6 @@ cargarPaquetes()
     initPriceSlider();
     actualizarLdItemList();
     aplicarEstadoDesdeURL();
-    cargarCupos();
   })
   .catch(() => { /* ya se muestra estado de error en mostrarErrorCarga() */ });
 </script>
@@ -2343,6 +2342,11 @@ function cargarCupos() {
       container.innerHTML = '<div class="cupos-empty">No pudimos cargar los cupos aéreos en este momento.<br><button onclick="cargarCupos()" style="margin-top:10px;background:var(--sp);color:#fff;border:none;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:\'Inter\',sans-serif">Reintentar</button></div>';
     });
 }
+
+// Cupos aéreos: fuente de datos independiente (otro gid del mismo Sheet).
+// Se dispara acá, apenas está definida, en paralelo a cargarPaquetes() —
+// así un fallo o demora en el fetch de paquetes ya NO bloquea esta sección.
+cargarCupos();
 </script>
 
 </body>
