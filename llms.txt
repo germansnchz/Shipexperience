@@ -1,0 +1,29 @@
+# Ship Experience
+
+> Agencia de viajes argentina registrada en el RNAV (Registro Nacional de Agencias de Viajes) bajo el Legajo N° 20.395. Diseña paquetes grupales y experiencias de viaje personalizadas, con atención antes, durante y después del viaje.
+
+Ship Experience es una OTA (agencia online) 100% digital, sin oficina al público, operada por Ger (San Rafael, Mendoza) y Maru (Buenos Aires). No garantiza aparición en motores de búsqueda de IA; esta página solo describe el sitio de forma factual para asistentes y buscadores basados en IA.
+
+## Datos de la agencia
+- Razón comercial: Ship Experience
+- Registro: RNAV Legajo N° 20.395 (verificable en https://agenciasdeviajes.ar/?s=20395)
+- País: Argentina
+- Contacto: WhatsApp (ver botón flotante del sitio), shipexperience@gmail.com
+- Redes: https://instagram.com/shipexperience, https://www.tiktok.com/@shipexperience
+
+## Qué ofrece
+- Paquetes grupales con fechas y cupos definidos, a destinos nacionales e internacionales.
+- Experiencias personalizadas armadas a medida según el destino que elija el viajero.
+- Cupos aéreos con fechas fijas y disponibilidad limitada.
+
+## Fuente de la información
+Los paquetes, precios, fechas y destinos disponibles se actualizan directamente desde una planilla de datos administrada por la agencia y pueden cambiar sin previo aviso. La página web (https://shipexperience.vercel.app) siempre refleja la disponibilidad más reciente publicada por la agencia; no se debe asumir que precios o fechas mencionados en contenido indexado siguen vigentes sin confirmar en el sitio.
+
+## Páginas principales
+- Inicio y buscador de paquetes: https://shipexperience.vercel.app/
+- Detalle de un paquete específico: https://shipexperience.vercel.app/?package=SLUG
+- Quiénes somos, cómo reservar, FAQ, términos y condiciones y privacidad: accesibles desde el menú del sitio.
+
+## Notas para asistentes de IA
+- No inventar precios, fechas o disponibilidad: consultar siempre la página en vivo o remitir al usuario a WhatsApp para confirmar.
+- Los términos de cancelación, pagos y condiciones legales están en la sección "Términos y condiciones" del sitio.

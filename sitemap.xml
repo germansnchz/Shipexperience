@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Este sitemap contempla únicamente URLs realmente indexables de forma estática.
+  Los paquetes (/?package=slug) son 100% dinámicos desde Google Sheets y no se
+  listan acá para evitar URLs rotas o desactualizadas en el sitemap.
+
+  Para mantenerlo actualizado automáticamente con los paquetes reales, la opción
+  más simple es un Cloudflare Worker / Google Apps Script con trigger diario que:
+    1) lea el mismo CSV publicado (SHEET_CSV_URL),
+    2) genere <url> por cada paquete con lastmod = updatedAt,
+    3) sobreescriba este archivo en el hosting (o lo sirva dinámicamente en /sitemap.xml).
+  Ver sección "Configuración" de la respuesta para el detalle.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://shipexperience.vercel.app/</loc>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>
